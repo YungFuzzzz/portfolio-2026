@@ -1,0 +1,134 @@
+@font-face {
+    font-family: 'metropolis';
+    src: url(../assets/fonts/metropolis.regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'metropolisLight';
+    src: url(../assets/fonts/metropolis.light.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'metropolisBold';
+    src: url(../assets/fonts/metropolis.extra-bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'metropolisBlack';
+    src: url(../assets/fonts/metropolis.black.otf) format('opentype');
+}
+
+body {
+    background-color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 40px 0 40px;
+    position: fixed;
+    top: 0;
+    width: calc(100% - 80px);
+    z-index: 1001;
+}
+
+.navbar img {
+    height: 24px;
+    padding: 10px;
+}
+
+.hamburger {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1200;
+    position: relative;
+}
+
+.hamburger span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background: #fff;
+    margin: 4px 0;
+    border-radius: 2px;
+    transition: all 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(10.5px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-10.5px) rotate(-45deg);
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.menu-overlay.active {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.menu-overlay ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-overlay ul li {
+    margin: 24px 0;
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.menu-overlay ul li a {
+    color: #fff;
+    font-size: 2.2rem;
+    font-family: metropolisBold;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: color 0.2s;
+    position: relative;
+}
+
+.menu-overlay ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    left: 0;
+    bottom: -2px;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.menu-overlay ul li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
