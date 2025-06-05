@@ -1,38 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VICES</title>
-    <link rel="stylesheet" href="./styles/index.css">
-    <link rel="icon" href="./assets/images/logo.svg" type="image/x-icon">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VICES</title>
+  <link rel="stylesheet" href="./styles/index.css" />
+  <link rel="icon" href="./assets/images/logo.svg" type="image/x-icon" />
+
+  <!-- GSAP & Plugins (in juiste volgorde + werkend) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MorphSVGPlugin.min.js"></script>
 </head>
 <body>
-    <nav class="navbar">
-        <a href="index.html" class="logo">
-            <img src="./assets/images/logo.svg" alt="Logo" class="logo">
-        </a>
-        <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
-    <div class="menu-overlay" id="menuOverlay">
-        <ul>
-            <li><a href="#">ABOUT ME</a></li>
-            <li><a href="#">WORK</a></li>
-            <li><a href="#">LAB</a></li>
-            <li><a href="#">SAY HI</a></li>
-        </ul>
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <svg id="logoSvg" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path id="logoPath" d="M15.3446 2.30396L4.09344 14.2558L7.71957 22.7549L30.6893 28.8636L32 27.27L15.3446 14.2558L1.52427 29.6604L0 28.8636L16.6735 3.27782L15.3446 2.30396Z" fill="white"/>
+      </svg>
+    </a>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
-    <div id="threejs-canvas"></div>
-    <section class="content">
-        <h1>HIYA</h1>
-    </section>
-    <script src="./scripts/index-anim.js"></script>
-    <script type="module" src="./scripts/indexthree.js"></script>
+  </nav>
+
+  <div class="menu-overlay" id="menuOverlay">
+    <ul>
+      <li><a href="#">ABOUT ME</a></li>
+      <li><a href="#">WORK</a></li>
+      <li><a href="#">LAB</a></li>
+      <li><a href="#">SAY HI</a></li>
+    </ul>
+  </div>
+
+  <div id="threejs-canvas"></div>
+
+  <section class="content">
+    <h1>HIYA</h1>
+  </section>
+
+  <script src="./scripts/index-anim.js"></script>
+  <script type="module" src="./scripts/indexthree.js"></script>
 </body>
 </html>
