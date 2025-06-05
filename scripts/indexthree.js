@@ -10,7 +10,10 @@ const camera = new THREE.PerspectiveCamera(
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+
+// Voeg de renderer toe aan de juiste div
+const threejsDiv = document.getElementById('threejs-canvas');
+threejsDiv.appendChild(renderer.domElement);
 
 // Groene kubus
 const geometry = new THREE.BoxGeometry();

@@ -22,6 +22,7 @@ body {
     background-color: #000;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 .navbar {
@@ -131,4 +132,26 @@ body {
 .menu-overlay ul li a:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
+}
+
+#threejs-canvas {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.content {
+    margin: 0;
+    background-color: #000;
+}
+
+.content h1 {
+    margin: 0;
+    padding: 0;
+    font-family: metropolisBlack;
+    color: #fff;
+    font-size: 710px;
+    line-height: 1;
+    transform: none;
 }
