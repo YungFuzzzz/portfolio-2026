@@ -1,5 +1,8 @@
 window.addEventListener('DOMContentLoaded', () => {
-  gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin);
+  gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin, ScrollToPlugin);
+
+  // Get elements
+  const scrollArrow = document.querySelector('.scroll-arrow');
 
   // Navbar fade-in
   gsap.from('.navbar', {
@@ -31,6 +34,198 @@ window.addEventListener('DOMContentLoaded', () => {
     onLeave: () => h1Anim.pause(),
   });
 
+  // About section animatie
+  gsap.from('.about h2', {
+    y: 50,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.about h2',
+      start: 'top 80%',
+    }
+  });
+
+  gsap.from('.about p', {
+    y: 30,
+    opacity: 0,
+    duration: 1,
+    delay: 0.2,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.about p',
+      start: 'top 80%',
+    }
+  });
+
+  // Projects section animaties
+  gsap.from('.projects h2', {
+    y: 50,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.projects h2',
+      start: 'top 80%',
+    }
+  });
+
+  gsap.from('.project-item', {
+    y: 100,
+    opacity: 0,
+    duration: 1,
+    stagger: 0.2,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.projects-list',
+      start: 'top 80%',
+    }
+  });
+
+  // Contact section animaties
+  gsap.from('.contact h2', {
+    y: 50,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.contact',
+      start: 'top 60%',
+    }
+  });
+
+  gsap.from('.email-link', {
+    y: 30,
+    opacity: 0,
+    duration: 1,
+    delay: 0.2,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.contact',
+      start: 'top 60%',
+    }
+  });
+
+  gsap.from('.contact-divider', {
+    opacity: 0,
+    duration: 0.8,
+    delay: 0.4,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.contact',
+      start: 'top 60%',
+    }
+  });
+
+  gsap.from('.social-links', {
+    y: 20,
+    opacity: 0,
+    duration: 0.8,
+    delay: 0.6,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.contact',
+      start: 'top 60%',
+    }
+  });
+
+  // Footer section animaties
+  gsap.from('.footer-column', {
+    y: 50,
+    opacity: 0,
+    duration: 1,
+    stagger: 0.2,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: 'footer',
+      start: 'top 80%',
+    }
+  });
+
+  gsap.from('.footer-copyright', {
+    opacity: 0,
+    duration: 0.8,
+    delay: 0.4,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.footer-copyright',
+      start: 'top 90%',
+    }
+  });
+
+  // Email link underline animation
+  const emailLink = document.querySelector('.email-link');
+  if (emailLink) {
+    emailLink.addEventListener('mouseenter', () => {
+      gsap.to(emailLink.querySelector('::after'), {
+        width: '100%',
+        duration: 0.4,
+        ease: 'power2.out'
+      });
+    });
+  }
+
+  // Project hover interactions
+  const projectItems = document.querySelectorAll('.project-item');
+  
+  projectItems.forEach(item => {
+    const image = item.querySelector('.project-image');
+    const imageUrl = item.getAttribute('data-image');
+    
+    // Set background image (for now using gradients as placeholders)
+    if (imageUrl.includes('project1')) {
+      image.style.background = 'linear-gradient(45deg, #000, #333)';
+    } else if (imageUrl.includes('project2')) {
+      image.style.background = 'linear-gradient(45deg, #333, #666)';
+    } else {
+      image.style.background = 'linear-gradient(45deg, #666, #999)';
+    }
+    
+    // Check if device supports touch
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    if (isTouchDevice) {
+      // Mobile touch interactions
+      let isImageVisible = false;
+      
+      item.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        if (!isImageVisible) {
+          gsap.to(image, {
+            opacity: 1,
+            duration: 0.4,
+            ease: 'power2.out'
+          });
+          isImageVisible = true;
+        } else {
+          gsap.to(image, {
+            opacity: 0,
+            duration: 0.4,
+            ease: 'power2.out'
+          });
+          isImageVisible = false;
+        }
+      });
+    } else {
+      // Desktop mouse interactions
+      item.addEventListener('mouseenter', () => {
+        gsap.to(image, {
+          opacity: 1,
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+      });
+      
+      item.addEventListener('mouseleave', () => {
+        gsap.to(image, {
+          opacity: 0,
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+      });
+    }
+  });
+
   // Hamburger menu animatie
   const hamburger = document.getElementById('hamburger');
   const menuOverlay = document.getElementById('menuOverlay');
@@ -52,9 +247,28 @@ window.addEventListener('DOMContentLoaded', () => {
           delay: 0.1,
           ease: 'power3.out'
         });
+      // Hide scroll arrow when menu opens
+      gsap.to(scrollArrow, { 
+        opacity: 0, 
+        duration: 0.3,
+        onComplete: () => {
+          scrollArrow.classList.remove('visible');
+        }
+      });
     } else {
       gsap.to(menuOverlay, { opacity: 0, duration: 0.3, pointerEvents: 'none' });
       gsap.to(menuLinks, { opacity: 0, y: 40, duration: 0.3, stagger: 0.05 });
+      // Only show scroll arrow when menu closes if we're at the top
+      const currentScrollY = window.scrollY;
+      if (currentScrollY < 50) {
+        gsap.to(scrollArrow, { 
+          opacity: 0.7, 
+          duration: 0.3,
+          onComplete: () => {
+            scrollArrow.classList.add('visible');
+          }
+        });
+      }
     }
   });
 
@@ -90,4 +304,126 @@ const shape8 = "M12.09 28.61L12.09 28.61L10.07 26.58C10.08 26.71 10.08 26.83 10.
     .to(logoPath, { morphSVG: original })
     .to(logoPath, { morphSVG: shape8 })
     .to(logoPath, { morphSVG: original });
+
+  // Typewriter effect animatie voor h1
+  const h1Element = document.querySelector('.content h1');
+  const texts = ['HIYA', 'SALUT', 'HEY'];
+  let currentIndex = 0;
+
+  function typeWriter() {
+    const currentText = texts[currentIndex];
+    let charIndex = 0;
+    
+    // Start with invisible character to maintain height
+    h1Element.textContent = '\u00A0'; // Non-breaking space
+    
+    // Type out the text
+    const typeInterval = setInterval(() => {
+      h1Element.textContent = currentText.substring(0, charIndex + 1);
+      charIndex++;
+      
+      if (charIndex >= currentText.length) {
+        clearInterval(typeInterval);
+        
+        // Wait before erasing
+        setTimeout(() => {
+          // Erase the text
+          let eraseIndex = currentText.length;
+          const eraseInterval = setInterval(() => {
+            const remainingText = currentText.substring(0, eraseIndex - 1);
+            h1Element.textContent = remainingText || '\u00A0'; // Use non-breaking space when empty
+            eraseIndex--;
+            
+            if (eraseIndex <= 0) {
+              clearInterval(eraseInterval);
+              currentIndex = (currentIndex + 1) % texts.length;
+              
+              // Wait before typing next word
+              setTimeout(() => {
+                typeWriter();
+              }, 300);
+            }
+          }, 80); // Erase speed
+        }, 1500); // Wait time before erasing
+      }
+    }, 100); // Type speed
+  }
+
+  // Start the typewriter effect
+  typeWriter();
+
+  // Scroll arrow animatie
+  
+  // Initial state - hidden
+  gsap.set(scrollArrow, { opacity: 0 });
+  scrollArrow.classList.remove('visible');
+  
+  // Fade in animation after page load
+  gsap.to(scrollArrow, {
+    opacity: 0.7,
+    y: 0,
+    duration: 0.2,
+    delay: 0.5,
+    ease: "power2.out",
+    onComplete: () => {
+      scrollArrow.classList.add('visible');
+    }
+  });
+
+  // Bouncing animation
+  gsap.to(scrollArrow, {
+    y: 10,
+    duration: 1.5,
+    ease: "power2.inOut",
+    repeat: -1,
+    yoyo: true,
+    delay: 1.3
+  });
+
+  // Click handler for smooth scroll
+  scrollArrow.addEventListener('click', () => {
+    gsap.to(window, {
+      duration: 1.5,
+      scrollTo: { y: window.innerHeight, offsetY: 0 },
+      ease: "power2.inOut"
+    });
+    // Hide arrow permanently after click
+    gsap.to(scrollArrow, { 
+      opacity: 0, 
+      duration: 0.3,
+      onComplete: () => {
+        scrollArrow.classList.remove('visible');
+      }
+    });
+  });
+
+  // Show/hide arrow based on scroll position
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    
+    // Only show arrow when at the very top of the first section
+    if (currentScrollY < 50) {
+      if (!scrollArrow.classList.contains('visible')) {
+        gsap.to(scrollArrow, { 
+          opacity: 0.7, 
+          duration: 0.3,
+          onComplete: () => {
+            scrollArrow.classList.add('visible');
+          }
+        });
+      }
+    } else {
+      // Hide arrow when scrolling past the first section
+      if (scrollArrow.classList.contains('visible')) {
+        gsap.to(scrollArrow, { 
+          opacity: 0, 
+          duration: 0.3,
+          onComplete: () => {
+            scrollArrow.classList.remove('visible');
+          }
+        });
+      }
+    }
+  });
 });
