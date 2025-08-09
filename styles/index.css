@@ -136,6 +136,55 @@ body {
     transform-origin: bottom left;
 }
 
+.language-switcher {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+}
+
+.lang-btn {
+    background: none;
+    border: none;
+    color: #999;
+    font-family: metropolisBold;
+    font-size: 0.9rem;
+    padding: 8px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.lang-btn::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: #000;
+    left: 0;
+    bottom: 2px;
+    transition: width 0.3s ease;
+}
+
+.lang-btn:hover {
+    color: #000;
+}
+
+.lang-btn:hover::after {
+    width: 100%;
+}
+
+.lang-btn.active {
+    color: #000;
+}
+
+.lang-btn.active::after {
+    width: 100%;
+}
+
 .content {
     margin: 0;
     background-color: #fff;
@@ -811,5 +860,15 @@ footer {
     .footer-copyright {
         margin-top: 30px;
         font-size: 0.7rem;
+    }
+    
+    .language-switcher {
+        bottom: 30px;
+        gap: 25px;
+    }
+    
+    .lang-btn {
+        font-size: 0.8rem;
+        padding: 6px 0;
     }
 }

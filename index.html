@@ -27,11 +27,16 @@
 
   <div class="menu-overlay" id="menuOverlay">
     <ul>
-      <li><a href="#">ABOUT ME</a></li>
-      <li><a href="#">WORK</a></li>
-      <li><a href="#">LAB</a></li>
-      <li><a href="#">SAY HI</a></li>
+      <li><a href="#about" data-translate="menu-about">ABOUT ME</a></li>
+      <li><a href="#work" data-translate="menu-work">WORK</a></li>
+      <li><a href="#lab" data-translate="menu-lab">LAB</a></li>
+      <li><a href="#contact" data-translate="menu-contact">SAY HI</a></li>
     </ul>
+    <div class="language-switcher">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="nl">NL</button>
+    </div>
   </div>
 
   <section class="content">
@@ -40,21 +45,21 @@
 
   <section class="about">
     <div class="container">
-      <h2>I'M FAISAL</h2>
-      <p>Digital Experience Student passionate about creating immersive digital experiences through design and technology. Also obsessed with fashion and art.</p>
+      <h2 data-translate="about-title">I'M FAISAL</h2>
+      <p data-translate="about-description">Digital Experience Student passionate about creating immersive digital experiences through design and technology. Also obsessed with fashion and art.</p>
     </div>
   </section>
 
   <section class="projects">
     <div class="container">
-      <h2>LATEST WORK</h2>
+      <h2 data-translate="projects-title">LATEST WORK</h2>
       <div class="projects-list">
         <div class="project-item" data-image="url('./assets/images/project1.jpg')">
           <div class="project-info">
             <div class="project-info-left">
               <div class="project-details">
                 <h3>UNVEIL</h3>
-                <p>BACHELOR THESIS PROJECT WHERE WE'VE CREATED AN APP FOR INTERACTIVE STORYTELLING</p>
+                <p data-translate="project1-description">BACHELOR THESIS PROJECT WHERE WE'VE CREATED AN APP FOR INTERACTIVE STORYTELLING</p>
               </div>
             </div>
           </div>
@@ -66,7 +71,7 @@
             <div class="project-info-left">
               <div class="project-details">
                 <h3>GARDEROBE</h3>
-                <p>APP IN REACT NATIVE FOR A CLOTHING SHOP</p>
+                <p data-translate="project2-description">APP IN REACT NATIVE FOR A CLOTHING SHOP</p>
               </div>
             </div>
           </div>
@@ -78,7 +83,7 @@
             <div class="project-info-left">
               <div class="project-details">
                 <h3>SWEAR</h3>
-                <p>CREATED A 3D SHOE CONFIGURATOR FOR SWEAR LONDON</p>
+                <p data-translate="project3-description">CREATED A 3D SHOE CONFIGURATOR FOR SWEAR LONDON</p>
               </div>
             </div>
           </div>
@@ -91,9 +96,9 @@
 
   <section class="contact">
     <div class="container">
-      <h2>WANNA TALK</h2>
+      <h2 data-translate="contact-title">WANNA TALK</h2>
       <div class="contact-content">
-        <a href="mailto:your.email@example.com" class="email-link">SEND ME AN EMAIL</a>
+        <a href="mailto:your.email@example.com" class="email-link" data-translate="contact-email">SEND ME AN EMAIL</a>
         <span class="contact-divider">OR</span>
         <div class="social-links">
           <a href="https://instagram.com/yourusername" target="_blank" class="social-link">
@@ -121,13 +126,13 @@
       <div class="footer-column">
         <h3>VICES</h3>
         <ul>
-          <li><a href="#work">WORK</a></li>
-          <li><a href="#about">ABOUT ME</a></li>
-          <li><a href="#contact">SAY HI</a></li>
+          <li><a href="#work" data-translate="footer-work">WORK</a></li>
+          <li><a href="#about" data-translate="footer-about">ABOUT ME</a></li>
+          <li><a href="#contact" data-translate="footer-contact">SAY HI</a></li>
         </ul>
       </div>
       <div class="footer-column">
-        <h3>SOCIALS</h3>
+        <h3 data-translate="footer-socials">SOCIALS</h3>
         <ul>
           <li><a href="https://instagram.com/vicesdesign" target="_blank" rel="noopener">INSTAGRAM</a></li>
           <li><a href="https://www.linkedin.com/in/faisal-collinet-2251b5232/" target="_blank" rel="noopener">LINKEDIN</a></li>
@@ -135,16 +140,16 @@
         </ul>
       </div>
       <div class="footer-column">
-        <h3>COME FIND ME</h3>
+        <h3 data-translate="footer-find">COME FIND ME</h3>
         <p>
           JAN KEPPENSSTRAAT 1<br>
           1830 MACHELEN<br><br>
-          <a href="mailto:vices@design.com">SEND AN EMAIL</a>
+          <a href="mailto:vices@design.com" data-translate="footer-email">SEND AN EMAIL</a>
         </p>
       </div>
     </div>
     <div class="footer-copyright">
-      <p>&copy; 2025 Faisal. All rights reserved.</p>
+      <p data-translate="footer-copyright">&copy; 2025 Faisal. All rights reserved.</p>
     </div>
   </footer>
 
