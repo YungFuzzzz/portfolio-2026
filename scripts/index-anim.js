@@ -172,13 +172,12 @@ window.addEventListener('DOMContentLoaded', () => {
     const image = item.querySelector('.project-image');
     const imageUrl = item.getAttribute('data-image');
     
-    // Set background image (for now using gradients as placeholders)
-    if (imageUrl.includes('project1')) {
-      image.style.background = 'linear-gradient(45deg, #000, #333)';
-    } else if (imageUrl.includes('project2')) {
-      image.style.background = 'linear-gradient(45deg, #333, #666)';
-    } else {
-      image.style.background = 'linear-gradient(45deg, #666, #999)';
+    // Set background image using the actual image path
+    if (imageUrl) {
+      image.style.backgroundImage = `url('${imageUrl}')`;
+      image.style.backgroundSize = 'cover';
+      image.style.backgroundPosition = 'center';
+      image.style.backgroundRepeat = 'no-repeat';
     }
     
     // Check if device supports touch
