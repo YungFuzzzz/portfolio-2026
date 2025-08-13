@@ -95,9 +95,12 @@ function initImageTrace() {
 
   // Trail points array
   const trailPoints = [];
-  const maxPoints = 200; // More points for smoother trail
+  const maxPoints = 100; // Reduced from 200 for better performance
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
+  let lastRenderTime = 0;
+  const targetFPS = 30; // Cap at 30fps instead of 60fps
+  const frameInterval = 1000 / targetFPS;
 
   // Color schemes - randomly selected on page load
   const colorSchemes = [
@@ -264,13 +267,13 @@ function initImageTrace() {
     mouseX = e.clientX;
     mouseY = e.clientY;
     
-    // Add multiple points for ultra-smooth trail
+    // Add points less frequently for better performance
     const lastPoint = trailPoints[trailPoints.length - 1];
     const distance = lastPoint ? 
       Math.sqrt((mouseX - lastPoint.x) ** 2 + (mouseY - lastPoint.y) ** 2) : 0;
     
-    // Add points more frequently for thicker, smoother appearance
-    if (!lastPoint || distance > 5) { // More frequent points for thicker trail
+    // Only add point if moved enough distance
+    if (!lastPoint || distance > 12) { // Increased threshold for performance
       trailPoints.push({
         x: mouseX,
         y: mouseY,
@@ -285,15 +288,23 @@ function initImageTrace() {
     }
   });
 
-  // Animation loop
+  // Animation loop with FPS limiting
   function animate() {
+    const currentTime = Date.now();
+    
+    // Limit frame rate for better performance
+    if (currentTime - lastRenderTime < frameInterval) {
+      requestAnimationFrame(animate);
+      return;
+    }
+    lastRenderTime = currentTime;
+    
     // Clear canvas completely for bright colors
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.globalCompositeOperation = 'source-over';
 
     // Update and draw trail points
-    const currentTime = Date.now();
     
     for (let i = trailPoints.length - 1; i >= 0; i--) {
       const point = trailPoints[i];
@@ -329,22 +340,22 @@ function initImageTrace() {
       const g = Math.round(color1.g + (color2.g - color1.g) * colorProgress);
       const b = Math.round(color1.b + (color2.b - color1.b) * colorProgress);
       
-      // Draw only smooth liquid blob without visible dots
-      const size = (50 + progress * 70) * point.life; // 2x thicker
-      const opacity = Math.pow(point.life, 0.8) * 0.7; // Smoother opacity fade
+      // Draw optimized liquid blob - skip some calculations for performance
+      const size = (55 + progress * 65) * point.life; // Slightly bigger to compensate for fewer points
+      const opacity = Math.pow(point.life, 0.8) * 0.7;
       
-      // Create soft gradient
+      // Simplified gradient for better performance
       const gradient = ctx.createRadialGradient(
         point.x, point.y, 0,
-        point.x, point.y, size * 1.2 // Tighter gradient for more intensity
+        point.x, point.y, size
       );
       gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${opacity})`);
-      gradient.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, ${opacity * 0.6})`); // Less fade
+      gradient.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, ${opacity * 0.4})`);
       gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
       
       ctx.fillStyle = gradient;
       ctx.beginPath();
-      ctx.arc(point.x, point.y, size * 1.2, 0, Math.PI * 2);
+      ctx.arc(point.x, point.y, size, 0, Math.PI * 2);
       ctx.fill();
     }
 
