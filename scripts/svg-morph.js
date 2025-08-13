@@ -2,7 +2,10 @@
 export function initializeSVGMorph() {
   const logoPath = document.getElementById("logoPath");
   
-  if (!logoPath) return;
+  if (!logoPath) {
+    console.log('Logo path not found');
+    return;
+  }
   
   const original = logoPath.getAttribute("d");
 

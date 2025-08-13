@@ -2,6 +2,12 @@
 export function initializeMenu() {
   const hamburger = document.getElementById('hamburger');
   const menuOverlay = document.getElementById('menuOverlay');
+  
+  if (!hamburger || !menuOverlay) {
+    console.log('Menu elements not found');
+    return;
+  }
+  
   const menuLinks = menuOverlay.querySelectorAll('ul li');
   const scrollArrow = document.querySelector('.scroll-arrow');
   
@@ -25,16 +31,18 @@ export function initializeMenu() {
           ease: 'power3.out'
         });
       // Hide scroll arrow when menu opens
-      gsap.to(scrollArrow, { 
-        opacity: 0, 
-        duration: 0.3,
-        onComplete: () => scrollArrow.classList.remove('visible')
-      });
+      if (scrollArrow) {
+        gsap.to(scrollArrow, { 
+          opacity: 0, 
+          duration: 0.3,
+          onComplete: () => scrollArrow.classList.remove('visible')
+        });
+      }
     } else {
       gsap.to(menuOverlay, { opacity: 0, duration: 0.3, pointerEvents: 'none' });
       gsap.to(menuLinks, { opacity: 0, y: 40, duration: 0.3, stagger: 0.05 });
       // Only show scroll arrow when menu closes if we're at the top
-      if (window.scrollY < SCROLL_THRESHOLD) {
+      if (scrollArrow && window.scrollY < SCROLL_THRESHOLD) {
         gsap.to(scrollArrow, { 
           opacity: 0.7, 
           duration: 0.3,
