@@ -180,6 +180,76 @@ function initImageTrace() {
       { r: 140, g: 200, b: 255 },   
       { r: 160, g: 220, b: 255 },   
       { r: 135, g: 206, b: 250 }    // Sky blue
+    ],
+    // Scheme 9: Mint Green to Turquoise
+    [
+      { r: 46, g: 125, b: 50 },     // Dark mint
+      { r: 60, g: 150, b: 80 },     
+      { r: 80, g: 175, b: 110 },    
+      { r: 100, g: 200, b: 140 },   
+      { r: 120, g: 220, b: 170 },   
+      { r: 140, g: 240, b: 200 },   
+      { r: 175, g: 238, b: 238 }    // Pale turquoise
+    ],
+    // Scheme 10: Burgundy to Rose Gold
+    [
+      { r: 128, g: 0, b: 32 },      // Burgundy
+      { r: 150, g: 30, b: 60 },     
+      { r: 180, g: 60, b: 90 },     
+      { r: 210, g: 100, b: 120 },   
+      { r: 230, g: 140, b: 150 },   
+      { r: 250, g: 180, b: 170 },   
+      { r: 255, g: 215, b: 185 }    // Rose gold
+    ],
+    // Scheme 11: Teal to Aqua
+    [
+      { r: 0, g: 128, b: 128 },     // Teal
+      { r: 30, g: 150, b: 150 },    
+      { r: 60, g: 175, b: 175 },    
+      { r: 90, g: 200, b: 200 },    
+      { r: 120, g: 220, b: 220 },   
+      { r: 150, g: 240, b: 240 },   
+      { r: 175, g: 255, b: 255 }    // Bright aqua
+    ],
+    // Scheme 12: Magenta to Light Pink
+    [
+      { r: 139, g: 0, b: 139 },     // Dark magenta
+      { r: 160, g: 30, b: 160 },    
+      { r: 180, g: 60, b: 180 },    
+      { r: 200, g: 100, b: 200 },   
+      { r: 220, g: 140, b: 220 },   
+      { r: 240, g: 180, b: 240 },   
+      { r: 255, g: 220, b: 255 }    // Very light pink
+    ],
+    // Scheme 13: Bronze to Gold
+    [
+      { r: 205, g: 127, b: 50 },    // Bronze
+      { r: 215, g: 145, b: 70 },    
+      { r: 225, g: 165, b: 90 },    
+      { r: 235, g: 185, b: 110 },   
+      { r: 245, g: 205, b: 130 },   
+      { r: 250, g: 220, b: 150 },   
+      { r: 255, g: 235, b: 170 }    // Light gold
+    ],
+    // Scheme 14: Indigo to Lavender
+    [
+      { r: 75, g: 0, b: 130 },      // Indigo
+      { r: 95, g: 30, b: 150 },     
+      { r: 115, g: 60, b: 170 },    
+      { r: 135, g: 90, b: 190 },    
+      { r: 155, g: 120, b: 210 },   
+      { r: 175, g: 150, b: 230 },   
+      { r: 195, g: 180, b: 250 }    // Light lavender
+    ],
+    // Scheme 15: Coral to Peach
+    [
+      { r: 255, g: 127, b: 80 },    // Coral
+      { r: 255, g: 140, b: 100 },   
+      { r: 255, g: 155, b: 120 },   
+      { r: 255, g: 170, b: 140 },   
+      { r: 255, g: 185, b: 160 },   
+      { r: 255, g: 200, b: 180 },   
+      { r: 255, g: 218, b: 185 }    // Light peach
     ]
   ];
 
@@ -228,11 +298,20 @@ function initImageTrace() {
     for (let i = trailPoints.length - 1; i >= 0; i--) {
       const point = trailPoints[i];
       const age = currentTime - point.time;
-      const maxAge = 3000; // Longer hanging time - 3 seconds
+      const maxAge = 3000; // 3 seconds total like your pop animation
       
-      point.life = Math.max(0, 1 - (age / maxAge));
+      // Different fade curve - stays longer, then fades fast
+      const fadeProgress = age / maxAge;
+      if (fadeProgress < 0.7) {
+        // Stay strong for first 70% of time (2.1 seconds)
+        point.life = 1.0;
+      } else {
+        // Quick fade in last 30% (0.9 seconds)
+        const quickFadeProgress = (fadeProgress - 0.7) / 0.3;
+        point.life = Math.max(0, Math.pow(1 - quickFadeProgress, 3)); // Fast cubic fade
+      }
       
-      if (point.life <= 0) {
+      if (point.life <= 0.01) { // Remove when almost invisible
         trailPoints.splice(i, 1);
         continue;
       }
@@ -252,7 +331,7 @@ function initImageTrace() {
       
       // Draw only smooth liquid blob without visible dots
       const size = (50 + progress * 70) * point.life; // 2x thicker
-      const opacity = Math.pow(point.life, 1.5) * 0.8; // Much more intense colors
+      const opacity = Math.pow(point.life, 0.8) * 0.7; // Smoother opacity fade
       
       // Create soft gradient
       const gradient = ctx.createRadialGradient(
