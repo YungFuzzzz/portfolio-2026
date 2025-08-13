@@ -5,6 +5,7 @@ import { initializeMenu } from './menu.js';
 import { initializeSVGMorph } from './svg-morph.js';
 import { initializeTypewriter } from './typewriter.js';
 import { initializeScrollArrow } from './scroll-arrow.js';
+import { initializeMagneticSquare } from './magnetic-square.js';
 
 window.addEventListener('DOMContentLoaded', () => {
   // Register GSAP plugins
@@ -17,4 +18,5 @@ window.addEventListener('DOMContentLoaded', () => {
   initializeSVGMorph();
   initializeTypewriter();
   initializeScrollArrow();
+  initializeMagneticSquare();
 });

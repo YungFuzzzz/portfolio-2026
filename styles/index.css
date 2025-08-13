@@ -251,6 +251,20 @@ body {
     scroll-snap-align: start;
 }
 
+.about-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.about-text {
+    flex: 1;
+    max-width: 600px;
+}
+
 .about h2 {
     font-family: metropolisBlack;
     font-size: 4rem;
@@ -265,6 +279,34 @@ body {
     color: #000;
     line-height: 1.6;
     max-width: 600px;
+}
+
+/* Magnetic Image Grid Styles */
+.magnetic-image {
+    width: 400px;
+    height: 400px;
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 0;
+    flex-shrink: 0;
+    position: relative;
+    cursor: pointer;
+    perspective: 1000px; /* Enable 3D perspective */
+}
+
+.image-piece {
+    width: 40px;
+    height: 40px;
+    background-size: 400px 400px;
+    background-repeat: no-repeat;
+    position: relative;
+    transition: none; /* We'll use GSAP for animations */
+    transform-style: preserve-3d; /* Enable 3D transforms */
+}
+
+.image-piece:hover {
+    z-index: 10;
 }
 
 .projects {
@@ -629,6 +671,25 @@ footer {
         padding: 0 20px;
     }
     
+    .about-content {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+    }
+    
+    .magnetic-image {
+        width: 300px;
+        height: 300px;
+        grid-template-columns: repeat(10, 30px);
+        grid-template-rows: repeat(10, 30px);
+    }
+    
+    .image-piece {
+        width: 30px;
+        height: 30px;
+        background-size: 300px 300px;
+    }
+    
     .about h2 {
         font-size: 2.5rem;
         margin: 0 0 20px 0;
@@ -774,6 +835,23 @@ footer {
     
     .container {
         padding: 0 15px;
+    }
+    
+    .about-content {
+        gap: 30px;
+    }
+    
+    .magnetic-image {
+        width: 250px;
+        height: 250px;
+        grid-template-columns: repeat(10, 25px);
+        grid-template-rows: repeat(10, 25px);
+    }
+    
+    .image-piece {
+        width: 25px;
+        height: 25px;
+        background-size: 250px 250px;
     }
     
     .about h2 {
