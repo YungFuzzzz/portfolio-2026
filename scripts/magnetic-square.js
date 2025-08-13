@@ -9,7 +9,7 @@ export function initializeMagneticSquare() {
   
   // Configuration based on screen size
   const config = getConfig();
-  const { gridSize, pieceSize, imageSize } = config;
+  const { gridCols, gridRows, pieceSize, imageWidth, imageHeight } = config;
   
   // Create image pieces
   function createImagePieces() {
@@ -17,13 +17,13 @@ export function initializeMagneticSquare() {
     magneticImage.innerHTML = '';
     
     // Update container size
-    magneticImage.style.width = `${imageSize}px`;
-    magneticImage.style.height = `${imageSize}px`;
-    magneticImage.style.gridTemplateColumns = `repeat(10, ${pieceSize}px)`;
-    magneticImage.style.gridTemplateRows = `repeat(10, ${pieceSize}px)`;
+    magneticImage.style.width = `${imageWidth}px`;
+    magneticImage.style.height = `${imageHeight}px`;
+    magneticImage.style.gridTemplateColumns = `repeat(${gridCols}, ${pieceSize}px)`;
+    magneticImage.style.gridTemplateRows = `repeat(${gridRows}, ${pieceSize}px)`;
     
-    for (let row = 0; row < 10; row++) {
-      for (let col = 0; col < 10; col++) {
+    for (let row = 0; row < gridRows; row++) {
+      for (let col = 0; col < gridCols; col++) {
         const piece = document.createElement('div');
         piece.className = 'image-piece';
         
@@ -35,7 +35,7 @@ export function initializeMagneticSquare() {
         piece.style.width = `${pieceSize}px`;
         piece.style.height = `${pieceSize}px`;
         piece.style.backgroundImage = `url('${imageUrl}')`;
-        piece.style.backgroundSize = `${imageSize}px ${imageSize}px`;
+        piece.style.backgroundSize = `${imageWidth}px ${imageHeight}px`;
         piece.style.backgroundPosition = `${backgroundPosX}px ${backgroundPosY}px`;
         
         // Add magnetic hover effect
@@ -77,17 +77,18 @@ export function initializeMagneticSquare() {
       const deltaX = (e.clientX - centerX) / (rect.width / 2);
       const deltaY = (e.clientY - centerY) / (rect.height / 2);
       
-      // Create more noticeable illusion of movement
-      const scaleEffect = 1 + (Math.abs(deltaX) + Math.abs(deltaY)) * 0.3; // More noticeable scale (up to 1.3x)
-      const rotationX = deltaY * -12; // Stronger tilt (up to ±12°)
-      const rotationY = deltaX * 12;  // Stronger tilt (up to ±12°)
+      // Scale from 1.0 to 1.3 for subtle enlargement
+      const intensity = (Math.abs(deltaX) + Math.abs(deltaY)) * 0.5; // 0 to 1
+      const scaleEffect = 1.0 + (intensity * 0.3); // 1.0 to 1.3
+      const rotationX = deltaY * -12; // Strong rotation
+      const rotationY = deltaX * 12;  // Strong rotation
       
-      // Apply transform for illusion of movement
+      // Apply transform for illusion of movement with center origin
       gsap.to(piece, {
         scale: scaleEffect,
         rotationX: rotationX,
         rotationY: rotationY,
-        duration: 0.25, // Slightly faster response
+        duration: 0.25,
         ease: "power2.out",
         transformOrigin: "center center"
       });
@@ -97,12 +98,33 @@ export function initializeMagneticSquare() {
   // Get configuration based on screen size
   function getConfig() {
     if (window.innerWidth <= 480) {
-      return { gridSize: 10, pieceSize: 25, imageSize: 250 };
+      // Mobile: 250x356px (maintaining 400:570 ratio)
+      return { 
+        gridCols: 10, 
+        gridRows: 14, 
+        pieceSize: 25, 
+        imageWidth: 250, 
+        imageHeight: 356 
+      };
     }
     if (window.innerWidth <= 768) {
-      return { gridSize: 10, pieceSize: 30, imageSize: 300 };
+      // Tablet: 300x428px (maintaining 400:570 ratio)
+      return { 
+        gridCols: 10, 
+        gridRows: 14, 
+        pieceSize: 30, 
+        imageWidth: 300, 
+        imageHeight: 428 
+      };
     }
-    return { gridSize: 10, pieceSize: 40, imageSize: 400 };
+    // Desktop: 400x570px (original dimensions)
+    return { 
+      gridCols: 10, 
+      gridRows: 14, 
+      pieceSize: 40, 
+      imageWidth: 400, 
+      imageHeight: 570 
+    };
   }
   
   // Initialize
