@@ -1,8 +1,23 @@
 window.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin, ScrollToPlugin);
 
-  // Get elements
+  // Cache DOM elements at the top for better performance
   const scrollArrow = document.querySelector('.scroll-arrow');
+  const h1Element = document.querySelector('.content h1');
+  const logoPath = document.getElementById("logoPath");
+  const hamburger = document.getElementById('hamburger');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const menuLinks = menuOverlay.querySelectorAll('ul li');
+  const emailLink = document.querySelector('.email-link');
+  const projectItems = document.querySelectorAll('.project-item');
+
+  // Constants
+  const SCROLL_THRESHOLD = 50;
+  const TYPEWRITER_TEXTS = ['HIYA', 'SALUT', 'HEY'];
+  const TYPEWRITER_SPEEDS = { type: 100, erase: 80, pause: 800, nextWord: 300 };
+  
+  // Performance: Check touch device once
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
   // Navbar fade-in
   gsap.from('.navbar', {
@@ -154,7 +169,6 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   // Email link underline animation
-  const emailLink = document.querySelector('.email-link');
   if (emailLink) {
     emailLink.addEventListener('mouseenter', () => {
       gsap.to(emailLink.querySelector('::after'), {
@@ -165,23 +179,21 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Project hover interactions
-  const projectItems = document.querySelectorAll('.project-item');
-  
+  // Project hover interactions - optimized
   projectItems.forEach(item => {
     const image = item.querySelector('.project-image');
     const imageUrl = item.getAttribute('data-image');
     
     // Set background image using the actual image path
-    if (imageUrl) {
-      image.style.backgroundImage = `url('${imageUrl}')`;
-      image.style.backgroundSize = 'cover';
-      image.style.backgroundPosition = 'center';
-      image.style.backgroundRepeat = 'no-repeat';
+    if (imageUrl && image) {
+      // Use Object.assign for better performance
+      Object.assign(image.style, {
+        backgroundImage: `url('${imageUrl}')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      });
     }
-    
-    // Check if device supports touch
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     
     if (isTouchDevice) {
       // Mobile touch interactions
@@ -189,21 +201,13 @@ window.addEventListener('DOMContentLoaded', () => {
       
       item.addEventListener('touchstart', (e) => {
         e.preventDefault();
-        if (!isImageVisible) {
-          gsap.to(image, {
-            opacity: 1,
-            duration: 0.4,
-            ease: 'power2.out'
-          });
-          isImageVisible = true;
-        } else {
-          gsap.to(image, {
-            opacity: 0,
-            duration: 0.4,
-            ease: 'power2.out'
-          });
-          isImageVisible = false;
-        }
+        const opacity = isImageVisible ? 0 : 1;
+        gsap.to(image, {
+          opacity,
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+        isImageVisible = !isImageVisible;
       });
     } else {
       // Desktop mouse interactions
@@ -225,16 +229,12 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Hamburger menu animatie
-  const hamburger = document.getElementById('hamburger');
-  const menuOverlay = document.getElementById('menuOverlay');
-  const menuLinks = menuOverlay.querySelectorAll('ul li');
-
+  // Hamburger menu animatie - optimized
   hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
+    const isActive = hamburger.classList.toggle('active');
     menuOverlay.classList.toggle('active');
 
-    if (menuOverlay.classList.contains('active')) {
+    if (isActive) {
       gsap.to(menuOverlay, { opacity: 1, duration: 0.4, pointerEvents: 'all' });
       gsap.fromTo(menuLinks,
         { opacity: 0, y: 40 },
@@ -250,67 +250,55 @@ window.addEventListener('DOMContentLoaded', () => {
       gsap.to(scrollArrow, { 
         opacity: 0, 
         duration: 0.3,
-        onComplete: () => {
-          scrollArrow.classList.remove('visible');
-        }
+        onComplete: () => scrollArrow.classList.remove('visible')
       });
     } else {
       gsap.to(menuOverlay, { opacity: 0, duration: 0.3, pointerEvents: 'none' });
       gsap.to(menuLinks, { opacity: 0, y: 40, duration: 0.3, stagger: 0.05 });
       // Only show scroll arrow when menu closes if we're at the top
-      const currentScrollY = window.scrollY;
-      if (currentScrollY < 50) {
+      if (window.scrollY < SCROLL_THRESHOLD) {
         gsap.to(scrollArrow, { 
           opacity: 0.7, 
           duration: 0.3,
-          onComplete: () => {
-            scrollArrow.classList.add('visible');
-          }
+          onComplete: () => scrollArrow.classList.add('visible')
         });
       }
     }
   });
 
-// SVG morph animatie
-const logoPath = document.getElementById("logoPath");
-const original = logoPath.getAttribute("d");
+  // SVG morph animatie - optimized
+  const original = logoPath.getAttribute("d");
 
-const shape1 = "M8.114 0H0.114V8C0.114 12.074 3.159 15.436 7.098 15.936C3.104 16.384 0 19.772 0 23.885L0 31.885H8C12.074 31.885 15.436 28.84 15.936 24.902C16.384 28.896 19.772 32 23.885 32H31.885V24C31.885 19.366 28.84 16.563 24.902 16.064C28.896 15.616 32 12.947 32 8.114V0.114L24 0.114C19.366 0.114 16.563 3.159 16.064 7.098C15.616 3.104 12.947 0 8.114 0Z";
-const shape2 = "M15.996 16C7.162 15.998 0 8.835 0 0L32 0C32 8.835 24.838 15.998 16.01 16C24.838 16.002 32 23.165 32 32H0C0 23.165 7.162 16.002 15.996 16Z";
-const shape3 = "M16 32V23.035L0 15.999H8.97L16 0V8.97L32 15.999H23.035L16 32Z";
-const shape4 = "M16 3.52C16 1.576 14.424 0 12.48 0H3.52C1.576 0 0 1.576 0 3.52V12.28C0 14.52 1.576 15.115 3.52 15.115H12.48C14.424 15.115 16 16.69 16 18.64V28C16 29.624 17.576 32 19.52 32H28C29.624 32 32 29.624 32 28V19.44C32 17.46 29.624 16 28 16H19.52C17.576 16 16 14.66 16 12.365V3.52Z";
-const shape5 = "M14.39 0.98C15.06 -0.33 16.935 -0.33 17.53 0.98L21.916 9.306C22.088 9.64 22.36 9.911 22.694 10.083L31.02 14.39C32.33 15.06 32.33 16.935 31.02 17.53L22.694 21.916C22.36 22.088 22.088 22.36 21.916 22.694L17.53 31.02C16.935 32.33 15.06 32.33 14.39 31.02L9.883 22.694C9.56 22.36 9.192 22.088 8.306 21.916L0.98 17.53C-0.33 16.935 -0.33 15.06 0.98 14.39L8.306 10.083C9.192 9.911 9.56 9.64 9.883 9.306L14.39 0.98Z";
-const shape6 = "M8 0H0V16H8C3.58 16 0 19.58 0 24V32H16V24C16 27.618 19.58 32 24 32H32V16H24C27.618 16 32 12.382 32 8V0H16V8C16 3.58 12.382 0 8 0ZM16 16H8C12.382 16 16 19.58 16 24V16ZM16 16V8C16 12.382 19.58 16 24 16H16Z";
-const shape7 = "M32 8V0L16 0V8C15.998 3.58 12.382 0 8 0H0V16H8C3.58 16 0 19.58 0 24L0 32H16L16 24C16 27.618 19.58 32 24 32H32L32 16H24C27.62 15.998 32 12.382 32 8Z";
-const shape8 = "M12.09 28.61L12.09 28.61L10.07 26.58C10.08 26.71 10.08 26.83 10.08 26.96C10.08 29.74 7.82 32 5.04 32C2.26 32 0 29.74 0 26.96C0 24.18 2.26 21.92 5.04 21.92C5.17 21.92 5.29 21.92 5.41 21.93L3.34 19.86L3.34 19.86C1.27 17.75 0 14.86 0 11.68C0 5.23 5.23 0 11.68 0C14.86 0 17.75 1.27 19.86 3.34L19.86 3.34L19.92 3.4C19.93 3.41 19.95 3.43 19.96 3.44L21.93 5.42C21.93 5.29 21.93 5.17 21.92 5.04C21.92 2.26 23.38 0 26.96 0C29.74 0 32 2.26 32 5.04C32 7.82 29.74 10.08 26.96 10.08C26.83 10.08 26.71 10.08 26.53 10.07L28.56 12.04C28.58 12.06 28.59 12.07 28.61 12.08L28.61 12.09C30.7 14.2 32 17.11 32 20.32C32 26.78 26.78 32 20.32 32C17.11 32 14.2 30.7 12.09 28.61Z";
+  // Store shapes in array for cleaner code
+  const shapes = [
+    "M8.114 0H0.114V8C0.114 12.074 3.159 15.436 7.098 15.936C3.104 16.384 0 19.772 0 23.885L0 31.885H8C12.074 31.885 15.436 28.84 15.936 24.902C16.384 28.896 19.772 32 23.885 32H31.885V24C31.885 19.366 28.84 16.563 24.902 16.064C28.896 15.616 32 12.947 32 8.114V0.114L24 0.114C19.366 0.114 16.563 3.159 16.064 7.098C15.616 3.104 12.947 0 8.114 0Z",
+    "M15.996 16C7.162 15.998 0 8.835 0 0L32 0C32 8.835 24.838 15.998 16.01 16C24.838 16.002 32 23.165 32 32H0C0 23.165 7.162 16.002 15.996 16Z",
+    "M16 32V23.035L0 15.999H8.97L16 0V8.97L32 15.999H23.035L16 32Z",
+    "M16 3.52C16 1.576 14.424 0 12.48 0H3.52C1.576 0 0 1.576 0 3.52V12.28C0 14.52 1.576 15.115 3.52 15.115H12.48C14.424 15.115 16 16.69 16 18.64V28C16 29.624 17.576 32 19.52 32H28C29.624 32 32 29.624 32 28V19.44C32 17.46 29.624 16 28 16H19.52C17.576 16 16 14.66 16 12.365V3.52Z",
+    "M14.39 0.98C15.06 -0.33 16.935 -0.33 17.53 0.98L21.916 9.306C22.088 9.64 22.36 9.911 22.694 10.083L31.02 14.39C32.33 15.06 32.33 16.935 31.02 17.53L22.694 21.916C22.36 22.088 22.088 22.36 21.916 22.694L17.53 31.02C16.935 32.33 15.06 32.33 14.39 31.02L9.883 22.694C9.56 22.36 9.192 22.088 8.306 21.916L0.98 17.53C-0.33 16.935 -0.33 15.06 0.98 14.39L8.306 10.083C9.192 9.911 9.56 9.64 9.883 9.306L14.39 0.98Z",
+    "M8 0H0V16H8C3.58 16 0 19.58 0 24V32H16V24C16 27.618 19.58 32 24 32H32V16H24C27.618 16 32 12.382 32 8V0H16V8C16 3.58 12.382 0 8 0ZM16 16H8C12.382 16 16 19.58 16 24V16ZM16 16V8C16 12.382 19.58 16 24 16H16Z",
+    "M32 8V0L16 0V8C15.998 3.58 12.382 0 8 0H0V16H8C3.58 16 0 19.58 0 24L0 32H16L16 24C16 27.618 19.58 32 24 32H32L32 16H24C27.62 15.998 32 12.382 32 8Z",
+    "M12.09 28.61L12.09 28.61L10.07 26.58C10.08 26.71 10.08 26.83 10.08 26.96C10.08 29.74 7.82 32 5.04 32C2.26 32 0 29.74 0 26.96C0 24.18 2.26 21.92 5.04 21.92C5.17 21.92 5.29 21.92 5.41 21.93L3.34 19.86L3.34 19.86C1.27 17.75 0 14.86 0 11.68C0 5.23 5.23 0 11.68 0C14.86 0 17.75 1.27 19.86 3.34L19.86 3.34L19.92 3.4C19.93 3.41 19.95 3.43 19.96 3.44L21.93 5.42C21.93 5.29 21.93 5.17 21.92 5.04C21.92 2.26 23.38 0 26.96 0C29.74 0 32 2.26 32 5.04C32 7.82 29.74 10.08 26.96 10.08C26.83 10.08 26.71 10.08 26.53 10.07L28.56 12.04C28.58 12.06 28.59 12.07 28.61 12.08L28.61 12.09C30.7 14.2 32 17.11 32 20.32C32 26.78 26.78 32 20.32 32C17.11 32 14.2 30.7 12.09 28.61Z"
+  ];
 
+  // Create timeline with optimized structure
+  const morphTimeline = gsap.timeline({ 
+    repeat: -1, 
+    defaults: { duration: 2.5, ease: "power2.inOut" } 
+  });
 
+  // Add morph animations dynamically
+  shapes.forEach(shape => {
+    morphTimeline
+      .to(logoPath, { morphSVG: shape })
+      .to(logoPath, { morphSVG: original });
+  });
 
-  gsap.timeline({ repeat: -1, defaults: { duration: 2.5, ease: "power2.inOut" } })
-    .to(logoPath, { morphSVG: shape1 })
-    .to(logoPath, { morphSVG: original })
-    .to(logoPath, { morphSVG: shape2 })
-    .to(logoPath, { morphSVG: original })
-    .to(logoPath, { morphSVG: shape3 })
-    .to(logoPath, { morphSVG: original })
-    .to(logoPath, { morphSVG: shape4 })
-    .to(logoPath, { morphSVG: original })
-    .to(logoPath, { morphSVG: shape5 })
-    .to(logoPath, { morphSVG: original })
-    .to(logoPath, { morphSVG: shape6 })
-    .to(logoPath, { morphSVG: original })
-    .to(logoPath, { morphSVG: shape7 })
-    .to(logoPath, { morphSVG: original })
-    .to(logoPath, { morphSVG: shape8 })
-    .to(logoPath, { morphSVG: original });
-
-  // Typewriter effect animatie voor h1
-  const h1Element = document.querySelector('.content h1');
-  const texts = ['HIYA', 'SALUT', 'HEY'];
+  // Typewriter effect animatie voor h1 - optimized
   let currentIndex = 0;
 
   function typeWriter() {
-    const currentText = texts[currentIndex];
+    const currentText = TYPEWRITER_TEXTS[currentIndex];
     let charIndex = 0;
     
     // Start with invisible character to maintain height
@@ -335,24 +323,21 @@ const shape8 = "M12.09 28.61L12.09 28.61L10.07 26.58C10.08 26.71 10.08 26.83 10.
             
             if (eraseIndex <= 0) {
               clearInterval(eraseInterval);
-              currentIndex = (currentIndex + 1) % texts.length;
+              currentIndex = (currentIndex + 1) % TYPEWRITER_TEXTS.length;
               
               // Wait before typing next word
-              setTimeout(() => {
-                typeWriter();
-              }, 300);
+              setTimeout(typeWriter, TYPEWRITER_SPEEDS.nextWord);
             }
-          }, 80); // Erase speed
-        }, 800); // Wait time before erasing
+          }, TYPEWRITER_SPEEDS.erase);
+        }, TYPEWRITER_SPEEDS.pause);
       }
-    }, 100); // Type speed
+    }, TYPEWRITER_SPEEDS.type);
   }
 
   // Start the typewriter effect
   typeWriter();
 
-  // Scroll arrow animatie
-  
+  // Scroll arrow animatie - optimized
   // Initial state - hidden
   gsap.set(scrollArrow, { opacity: 0 });
   scrollArrow.classList.remove('visible');
@@ -364,9 +349,7 @@ const shape8 = "M12.09 28.61L12.09 28.61L10.07 26.58C10.08 26.71 10.08 26.83 10.
     duration: 0.2,
     delay: 0.5,
     ease: "power2.out",
-    onComplete: () => {
-      scrollArrow.classList.add('visible');
-    }
+    onComplete: () => scrollArrow.classList.add('visible')
   });
 
   // Bouncing animation
@@ -390,39 +373,40 @@ const shape8 = "M12.09 28.61L12.09 28.61L10.07 26.58C10.08 26.71 10.08 26.83 10.
     gsap.to(scrollArrow, { 
       opacity: 0, 
       duration: 0.3,
-      onComplete: () => {
-        scrollArrow.classList.remove('visible');
-      }
+      onComplete: () => scrollArrow.classList.remove('visible')
     });
   });
 
-  // Show/hide arrow based on scroll position
+  // Throttled scroll handler for better performance
+  let scrollTimeout;
   window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-    const viewportHeight = window.innerHeight;
+    if (scrollTimeout) return;
     
-    // Only show arrow when at the very top of the first section
-    if (currentScrollY < 50) {
-      if (!scrollArrow.classList.contains('visible')) {
-        gsap.to(scrollArrow, { 
-          opacity: 0.7, 
-          duration: 0.3,
-          onComplete: () => {
-            scrollArrow.classList.add('visible');
-          }
-        });
+    scrollTimeout = setTimeout(() => {
+      const currentScrollY = window.scrollY;
+      const isVisible = scrollArrow.classList.contains('visible');
+      
+      // Only show arrow when at the very top of the first section
+      if (currentScrollY < SCROLL_THRESHOLD) {
+        if (!isVisible) {
+          gsap.to(scrollArrow, { 
+            opacity: 0.7, 
+            duration: 0.3,
+            onComplete: () => scrollArrow.classList.add('visible')
+          });
+        }
+      } else {
+        // Hide arrow when scrolling past the first section
+        if (isVisible) {
+          gsap.to(scrollArrow, { 
+            opacity: 0, 
+            duration: 0.3,
+            onComplete: () => scrollArrow.classList.remove('visible')
+          });
+        }
       }
-    } else {
-      // Hide arrow when scrolling past the first section
-      if (scrollArrow.classList.contains('visible')) {
-        gsap.to(scrollArrow, { 
-          opacity: 0, 
-          duration: 0.3,
-          onComplete: () => {
-            scrollArrow.classList.remove('visible');
-          }
-        });
-      }
-    }
+      
+      scrollTimeout = null;
+    }, 16); // ~60fps throttling
   });
 });
