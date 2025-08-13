@@ -77,17 +77,17 @@ export function initializeMagneticSquare() {
       const deltaX = (e.clientX - centerX) / (rect.width / 2);
       const deltaY = (e.clientY - centerY) / (rect.height / 2);
       
-      // Create illusion of movement through scale and rotation
-      const scaleEffect = 1 + (Math.abs(deltaX) + Math.abs(deltaY)) * 0.05; // Subtle scale
-      const rotationX = deltaY * -5; // Tilt based on vertical mouse position
-      const rotationY = deltaX * 5;  // Tilt based on horizontal mouse position
+      // Create more noticeable illusion of movement
+      const scaleEffect = 1 + (Math.abs(deltaX) + Math.abs(deltaY)) * 0.3; // More noticeable scale (up to 1.3x)
+      const rotationX = deltaY * -12; // Stronger tilt (up to ±12°)
+      const rotationY = deltaX * 12;  // Stronger tilt (up to ±12°)
       
       // Apply transform for illusion of movement
       gsap.to(piece, {
         scale: scaleEffect,
         rotationX: rotationX,
         rotationY: rotationY,
-        duration: 0.3,
+        duration: 0.25, // Slightly faster response
         ease: "power2.out",
         transformOrigin: "center center"
       });
