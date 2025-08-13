@@ -19,7 +19,6 @@
 }
 
 body {
-    background-color: #fff;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -28,19 +27,20 @@ body {
 
 /* Image trace container */
 .image-container {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 1;
 }
 
 .image-container img {
     width: 240px;
     height: 240px;
     pointer-events: none;
+    z-index: 5;
+    position: relative;
 }
 
 .blurry {
@@ -106,7 +106,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 1000;
     pointer-events: none;
     opacity: 0;
 }
@@ -235,13 +235,14 @@ body {
 /* Contact Content */
 .contact-hero {
     margin: 0;
-    background-color: #fff;
     width: 100vw;
     height: 100vh;
     overflow-x: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 10;
 }
 
 .contact-links {
@@ -260,6 +261,7 @@ body {
     letter-spacing: 2px;
     transition: color 0.2s;
     position: relative;
+    z-index: 10;
 }
 
 .contact-link::after {
@@ -296,13 +298,13 @@ body {
 
 /* Footer */
 footer {
-    background-color: #fff;
     color: #000;
     text-align: center;
     padding: 80px 20px 40px;
     position: relative;
     width: 100%;
     box-sizing: border-box;
+    z-index: 10;
 }
 
 .footer-content {
@@ -348,6 +350,7 @@ footer {
     display: inline-block;
     transition: all 0.3s ease;
     position: relative;
+    z-index: 10;
 }
 
 .footer-column a::after {
