@@ -156,6 +156,24 @@ body {
     transform-origin: bottom left;
 }
 
+/* Active menu link with gradient */
+.menu-overlay ul li a.active {
+    background: var(--active-gradient, linear-gradient(90deg, #007F5F, #FFFF3F));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.menu-overlay ul li a.active::after {
+    background: var(--active-gradient, linear-gradient(90deg, #007F5F, #FFFF3F));
+    transform: scaleX(0); /* Hidden by default */
+}
+
+.menu-overlay ul li a.active:hover::after {
+    transform: scaleX(1); /* Show on hover */
+}
+
 .language-switcher {
     position: absolute;
     bottom: 40px;
