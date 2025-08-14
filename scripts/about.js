@@ -42,6 +42,17 @@ function initNavbarAnimations() {
 }
 
 function animateContentSections() {
+    // Animate profile image
+    gsap.fromTo('.profile-img', {
+        opacity: 0,
+        scale: 0.9
+    }, {
+        opacity: 1,
+        scale: 1,
+        duration: 1.2,
+        ease: "power2.out",
+    });
+    
     // Animate intro text
     gsap.fromTo('.intro-text h2', {
         y: 50,
@@ -128,14 +139,14 @@ function animateContentSections() {
         }
     });
     
-    gsap.fromTo('.skill-item', {
+    gsap.fromTo('.skill-tag', {
         y: 30,
         opacity: 0
     }, {
         y: 0,
         opacity: 1,
         duration: 0.6,
-        stagger: 0.1,
+        stagger: 0.05,
         delay: 0.2,
         ease: "power2.out",
         scrollTrigger: {
@@ -146,18 +157,36 @@ function animateContentSections() {
         }
     });
     
-    // Animate image column
-    gsap.fromTo('.image-column', {
-        x: 50,
+    // Animate services section
+    gsap.fromTo('.services-section h3', {
+        y: 30,
         opacity: 0
     }, {
-        x: 0,
+        y: 0,
         opacity: 1,
-        duration: 0.8,
+        duration: 0.6,
         ease: "power2.out",
         scrollTrigger: {
-            trigger: '.image-column',
-            start: "top 80%",
+            trigger: '.services-section',
+            start: "top 85%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+        }
+    });
+    
+    gsap.fromTo('.service-item', {
+        y: 30,
+        opacity: 0
+    }, {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        delay: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+            trigger: '.services-section',
+            start: "top 85%",
             end: "bottom 20%",
             toggleActions: "play none none reverse"
         }
@@ -223,56 +252,8 @@ function animateContentSections() {
 }
 
 function animateStats() {
-    const statNumbers = document.querySelectorAll('.stat-number');
-    
-    statNumbers.forEach(stat => {
-        const endValue = parseInt(stat.textContent.replace(/[^0-9]/g, ''));
-        
-        gsap.fromTo(stat, {
-            textContent: 0
-        }, {
-            textContent: endValue,
-            duration: 2,
-            ease: "power2.out",
-            snap: { textContent: 1 },
-            onUpdate: function() {
-                const currentValue = Math.round(this.targets()[0].textContent);
-                const originalText = stat.dataset.original || stat.textContent;
-                
-                // Check if the original text has a suffix (like +, k, etc.)
-                const suffix = originalText.replace(/[0-9]/g, '');
-                stat.textContent = currentValue + suffix;
-            },
-            scrollTrigger: {
-                trigger: '.stats-section',
-                start: "top 85%",
-                end: "bottom 20%",
-                toggleActions: "play none none reverse"
-            }
-        });
-        
-        // Store original text as data attribute
-        stat.dataset.original = stat.textContent;
-    });
-    
-    // Animate stat labels
-    gsap.fromTo('.stat-label', {
-        y: 20,
-        opacity: 0
-    }, {
-        y: 0,
-        opacity: 1,
-        duration: 0.6,
-        stagger: 0.1,
-        delay: 0.5,
-        ease: "power2.out",
-        scrollTrigger: {
-            trigger: '.stats-section',
-            start: "top 85%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse"
-        }
-    });
+    // The stats section has been removed, so this function is now empty
+    // but we keep it to maintain compatibility with other code
 }
 
 // Add parallax effect to hero section
@@ -309,11 +290,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Add interaction effects to skill items
-document.querySelectorAll('.skill-item').forEach(item => {
+// Add interaction effects to skill tags
+document.querySelectorAll('.skill-tag').forEach(item => {
     item.addEventListener('mouseenter', () => {
         gsap.to(item, {
-            scale: 1.02,
+            scale: 1.05,
             y: -5,
             duration: 0.3,
             ease: "power2.out"
@@ -330,23 +311,44 @@ document.querySelectorAll('.skill-item').forEach(item => {
     });
 });
 
-// Add hover effect to profile image placeholder
-const imageOverlay = document.querySelector('.image-overlay');
-if (imageOverlay) {
-    const profileImage = document.querySelector('.profile-image');
-    
-    profileImage.addEventListener('mouseenter', () => {
-        gsap.to(imageOverlay, {
-            opacity: 0,
+// Add interaction effects to service items
+document.querySelectorAll('.service-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+        gsap.to(item, {
+            scale: 1.02,
+            x: 5,
             duration: 0.3,
             ease: "power2.out"
         });
     });
     
-    profileImage.addEventListener('mouseleave', () => {
-        gsap.to(imageOverlay, {
-            opacity: 1,
+    item.addEventListener('mouseleave', () => {
+        gsap.to(item, {
+            scale: 1,
+            x: 0,
             duration: 0.3,
+            ease: "power2.out"
+        });
+    });
+});
+
+// Add hover effect to profile image
+const profileImg = document.querySelector('.profile-img');
+if (profileImg) {
+    const profileImage = document.querySelector('.profile-image');
+    
+    profileImage.addEventListener('mouseenter', () => {
+        gsap.to(profileImg, {
+            scale: 1.03,
+            duration: 0.5,
+            ease: "power2.out"
+        });
+    });
+    
+    profileImage.addEventListener('mouseleave', () => {
+        gsap.to(profileImg, {
+            scale: 1,
+            duration: 0.5,
             ease: "power2.out"
         });
     });

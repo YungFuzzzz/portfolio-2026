@@ -290,13 +290,39 @@ body {
     margin-bottom: 0;
 }
 
-.skills-grid {
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.skill-tag {
+    background-color: #f5f5f5;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-family: metropolisBold;
+    font-size: 0.9rem;
+    color: #000;
+    transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+    background-color: #000;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.services-section {
+    margin-bottom: 60px;
+}
+
+.services-list {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 30px;
 }
 
-.skill-item h4 {
+.service-item h4 {
     font-family: metropolisBold;
     font-size: 1rem;
     color: #000;
@@ -304,7 +330,7 @@ body {
     letter-spacing: 0.5px;
 }
 
-.skill-item p {
+.service-item p {
     font-family: metropolis;
     font-size: 0.9rem;
     line-height: 1.4;
@@ -318,10 +344,23 @@ body {
     gap: 40px;
 }
 
+.about-hero {
+    padding-top: 100px;
+    padding-bottom: 40px;
+}
+
+.profile-showcase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .profile-image {
     width: 100%;
+    max-width: 400px;
     aspect-ratio: 3/4;
     position: relative;
+    margin: 0 auto;
 }
 
 .image-placeholder {
@@ -332,6 +371,18 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow: hidden;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.profile-img:hover {
+    transform: scale(1.03);
 }
 
 .image-overlay {
@@ -537,26 +588,36 @@ footer {
     }
 
     .about-hero {
-        height: 50vh;
+        padding-top: 80px;
     }
 
-    .about-title {
-        font-size: clamp(3rem, 15vw, 6rem);
+    .profile-image {
+        max-width: 300px;
     }
 
     .intro-text h2 {
         font-size: 2rem;
     }
 
-    .skills-grid {
-        grid-template-columns: 1fr;
+    .skills-container {
+        gap: 10px;
+    }
+
+    .skill-tag {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .services-list {
         gap: 20px;
     }
 
-    .stats-section {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
+    .service-item h4 {
+        font-size: 0.9rem;
+    }
+
+    .service-item p {
+        font-size: 0.8rem;
     }
 
     .philosophy-content h2 {
