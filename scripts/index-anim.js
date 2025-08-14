@@ -19,4 +19,50 @@ window.addEventListener('DOMContentLoaded', () => {
   initializeTypewriter();
   initializeScrollArrow();
   initializeMagneticSquare();
+  initializeAboutButton();
+  initializeProjectsButton();
 });
+
+// Initialize about button hover effect
+function initializeAboutButton() {
+  const aboutBtn = document.querySelector('.about-btn');
+  if (!aboutBtn) return;
+
+  aboutBtn.addEventListener('mouseenter', (e) => {
+    const rect = aboutBtn.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const buttonWidth = rect.width;
+    const centerX = buttonWidth / 2;
+    
+    // Determine fill direction based on mouse position
+    if (mouseX < centerX) {
+      // Mouse entered from left, fill left to right
+      aboutBtn.style.setProperty('--fill-origin', 'left');
+    } else {
+      // Mouse entered from right, fill right to left  
+      aboutBtn.style.setProperty('--fill-origin', 'right');
+    }
+  });
+}
+
+// Initialize projects button hover effect
+function initializeProjectsButton() {
+  const projectsBtn = document.querySelector('.projects-btn');
+  if (!projectsBtn) return;
+
+  projectsBtn.addEventListener('mouseenter', (e) => {
+    const rect = projectsBtn.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const buttonWidth = rect.width;
+    const centerX = buttonWidth / 2;
+    
+    // Determine fill direction based on mouse position
+    if (mouseX < centerX) {
+      // Mouse entered from left, fill left to right
+      projectsBtn.style.setProperty('--fill-origin', 'left');
+    } else {
+      // Mouse entered from right, fill right to left  
+      projectsBtn.style.setProperty('--fill-origin', 'right');
+    }
+  });
+}

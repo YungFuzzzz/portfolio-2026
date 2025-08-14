@@ -19,7 +19,9 @@ const translations = {
     'footer-socials': "SOCIALS",
     'footer-find': "FIND ME",
     'footer-email': "SEND AN EMAIL",
-    'footer-copyright': "© 2025 Faisal. All rights reserved."
+    'footer-copyright': "© 2025 Faisal. All rights reserved.",
+    'about-button': "LEARN MORE ABOUT ME",
+    'projects-button': "SEE MORE PROJECTS"
   },
   fr: {
     'menu-about': "À PROPOS",
@@ -40,7 +42,9 @@ const translations = {
     'footer-socials': "RÉSEAUX",
     'footer-find': "ME TROUVER",
     'footer-email': "ENVOYER UN EMAIL",
-    'footer-copyright': "© 2025 Faisal. Tous droits réservés."
+    'footer-copyright': "© 2025 Faisal. Tous droits réservés.",
+    'about-button': "EN SAVOIR PLUS SUR MOI",
+    'projects-button': "VOIR PLUS DE PROJETS"
   },
   nl: {
     'menu-about': "OVER",
@@ -61,7 +65,9 @@ const translations = {
     'footer-socials': "SOCIALS",
     'footer-find': "VIND ME",
     'footer-email': "STUUR EEN MAIL",
-    'footer-copyright': "© 2025 Faisal. Alle rechten voorbehouden."
+    'footer-copyright': "© 2025 Faisal. Alle rechten voorbehouden.",
+    'about-button': "MEER OVER MIJ",
+    'projects-button': "MEER PROJECTEN BEKIJKEN"
   }
 };
 
