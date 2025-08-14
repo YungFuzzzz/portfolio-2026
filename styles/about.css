@@ -240,25 +240,18 @@ body {
     background: #fff;
 }
 
-.content-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
-}
-
-.text-column {
-    display: flex;
-    flex-direction: column;
-    gap: 60px;
+.intro-section {
+    max-width: 900px;
+    margin: 0 auto 80px;
 }
 
 .intro-text h2 {
     font-family: metropolisBlack;
     font-size: 2.5rem;
     color: #000;
-    margin: 0 0 20px 0;
+    margin: 0 0 30px 0;
     letter-spacing: 1px;
+    text-align: center;
 }
 
 .intro-text p {
@@ -266,75 +259,97 @@ body {
     font-size: 1.2rem;
     line-height: 1.6;
     color: #333;
-    margin: 0;
+    margin: 0 0 20px 0;
+    text-align: center;
 }
 
-.bio-section h3,
+.skills-section {
+    margin-bottom: 80px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .skills-section h3 {
     font-family: metropolisBold;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: #000;
-    margin: 0 0 20px 0;
+    margin: 0 0 40px 0;
     letter-spacing: 1px;
-}
-
-.bio-section p {
-    font-family: metropolis;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #555;
-    margin: 0 0 20px 0;
-}
-
-.bio-section p:last-child {
-    margin-bottom: 0;
+    text-align: center;
 }
 
 .skills-container {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
+    justify-content: center;
 }
 
 .skill-tag {
     background-color: #f5f5f5;
-    padding: 8px 16px;
-    border-radius: 4px;
+    padding: 12px 20px;
+    border-radius: 30px;
     font-family: metropolisBold;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #000;
     transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
 }
 
 .skill-tag:hover {
     background-color: #000;
     color: #fff;
-    transform: translateY(-2px);
 }
 
 .services-section {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.services-list {
+.services-section h3 {
+    font-family: metropolisBold;
+    font-size: 1.8rem;
+    color: #000;
+    margin: 0 0 40px 0;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.services-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 30px;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.service-item {
+    background: #f9f9f9;
+    padding: 30px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.service-item:hover {
+    background: #f5f5f5;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
 .service-item h4 {
     font-family: metropolisBold;
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #000;
-    margin: 0 0 8px 0;
+    margin: 0 0 15px 0;
     letter-spacing: 0.5px;
 }
 
 .service-item p {
     font-family: metropolis;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: #666;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #555;
     margin: 0;
 }
 
@@ -346,7 +361,7 @@ body {
 
 .about-hero {
     padding-top: 100px;
-    padding-bottom: 40px;
+    padding-bottom: 60px;
 }
 
 .profile-showcase {
@@ -357,8 +372,8 @@ body {
 
 .profile-image {
     width: 100%;
-    max-width: 400px;
-    aspect-ratio: 3/4;
+    max-width: 600px;
+    aspect-ratio: 1/1;
     position: relative;
     margin: 0 auto;
 }
@@ -372,6 +387,8 @@ body {
     justify-content: center;
     position: relative;
     overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
 .profile-img {
@@ -379,10 +396,6 @@ body {
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
-}
-
-.profile-img:hover {
-    transform: scale(1.03);
 }
 
 .image-overlay {
@@ -425,33 +438,7 @@ body {
     margin-top: 5px;
 }
 
-.philosophy-section {
-    padding: 100px 0;
-    background: #f8f8f8;
-}
-
-.philosophy-content {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.philosophy-content h2 {
-    font-family: metropolisBlack;
-    font-size: 2.5rem;
-    color: #000;
-    margin: 0 0 40px 0;
-    letter-spacing: 1px;
-}
-
-.philosophy-content blockquote {
-    font-family: metropolis;
-    font-size: 1.3rem;
-    line-height: 1.6;
-    color: #333;
-    margin: 0;
-    font-style: italic;
-}
+/* Philosophy section removed */
 
 /* Footer (copied from contact.css) */
 footer {
@@ -582,21 +569,47 @@ footer {
         padding: 0 20px;
     }
 
-    .content-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
     .about-hero {
         padding-top: 80px;
     }
 
     .profile-image {
-        max-width: 300px;
+        max-width: 280px;
+    }
+
+    .intro-section {
+        margin-bottom: 60px;
     }
 
     .intro-text h2 {
         font-size: 2rem;
+    }
+
+    .intro-text p {
+        font-size: 1rem;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .service-item {
+        padding: 20px;
+    }
+
+    .service-item h4 {
+        font-size: 1.1rem;
+    }
+
+    .service-item p {
+        font-size: 0.9rem;
+    }
+
+    .skills-section h3, 
+    .services-section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
     }
 
     .skills-container {
@@ -604,28 +617,8 @@ footer {
     }
 
     .skill-tag {
-        padding: 6px 12px;
-        font-size: 0.8rem;
-    }
-
-    .services-list {
-        gap: 20px;
-    }
-
-    .service-item h4 {
-        font-size: 0.9rem;
-    }
-
-    .service-item p {
-        font-size: 0.8rem;
-    }
-
-    .philosophy-content h2 {
-        font-size: 2rem;
-    }
-
-    .philosophy-content blockquote {
-        font-size: 1.1rem;
+        padding: 8px 15px;
+        font-size: 0.85rem;
     }
 
     .footer-content {

@@ -45,7 +45,7 @@ function animateContentSections() {
     // Animate profile image
     gsap.fromTo('.profile-img', {
         opacity: 0,
-        scale: 0.9
+        scale: 0.95
     }, {
         opacity: 1,
         scale: 1,
@@ -55,7 +55,7 @@ function animateContentSections() {
     
     // Animate intro text
     gsap.fromTo('.intro-text h2', {
-        y: 50,
+        y: 40,
         opacity: 0
     }, {
         y: 0,
@@ -77,46 +77,12 @@ function animateContentSections() {
         y: 0,
         opacity: 1,
         duration: 0.8,
+        stagger: 0.15,
         delay: 0.2,
         ease: "power2.out",
         scrollTrigger: {
             trigger: '.intro-text',
             start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse"
-        }
-    });
-    
-    // Animate bio section
-    gsap.fromTo('.bio-section h3', {
-        y: 30,
-        opacity: 0
-    }, {
-        y: 0,
-        opacity: 1,
-        duration: 0.6,
-        ease: "power2.out",
-        scrollTrigger: {
-            trigger: '.bio-section',
-            start: "top 85%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse"
-        }
-    });
-    
-    gsap.fromTo('.bio-section p', {
-        y: 20,
-        opacity: 0
-    }, {
-        y: 0,
-        opacity: 1,
-        duration: 0.6,
-        stagger: 0.1,
-        delay: 0.2,
-        ease: "power2.out",
-        scrollTrigger: {
-            trigger: '.bio-section',
-            start: "top 85%",
             end: "bottom 20%",
             toggleActions: "play none none reverse"
         }
@@ -140,13 +106,13 @@ function animateContentSections() {
     });
     
     gsap.fromTo('.skill-tag', {
-        y: 30,
+        y: 20,
         opacity: 0
     }, {
         y: 0,
         opacity: 1,
         duration: 0.6,
-        stagger: 0.05,
+        stagger: 0.03,
         delay: 0.2,
         ease: "power2.out",
         scrollTrigger: {
@@ -187,40 +153,6 @@ function animateContentSections() {
         scrollTrigger: {
             trigger: '.services-section',
             start: "top 85%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse"
-        }
-    });
-    
-    // Animate philosophy section
-    gsap.fromTo('.philosophy-content h2', {
-        y: 50,
-        opacity: 0
-    }, {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-            trigger: '.philosophy-section',
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse"
-        }
-    });
-    
-    gsap.fromTo('.philosophy-content blockquote', {
-        y: 30,
-        opacity: 0
-    }, {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        delay: 0.3,
-        ease: "power2.out",
-        scrollTrigger: {
-            trigger: '.philosophy-section',
-            start: "top 80%",
             end: "bottom 20%",
             toggleActions: "play none none reverse"
         }
@@ -311,26 +243,7 @@ document.querySelectorAll('.skill-tag').forEach(item => {
     });
 });
 
-// Add interaction effects to service items
-document.querySelectorAll('.service-item').forEach(item => {
-    item.addEventListener('mouseenter', () => {
-        gsap.to(item, {
-            scale: 1.02,
-            x: 5,
-            duration: 0.3,
-            ease: "power2.out"
-        });
-    });
-    
-    item.addEventListener('mouseleave', () => {
-        gsap.to(item, {
-            scale: 1,
-            x: 0,
-            duration: 0.3,
-            ease: "power2.out"
-        });
-    });
-});
+// Service item hover effects removed as requested
 
 // Add hover effect to profile image
 const profileImg = document.querySelector('.profile-img');
