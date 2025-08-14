@@ -79,16 +79,17 @@ body {
 }
 
 .hamburger span {
-    width: 25px;
-    height: 2px;
+    width: 28px;
+    height: 3px;
     background: #000;
     margin: 3px 0;
-    transition: 0.3s;
+    border-radius: 2px;
+    transition: all 0.4s cubic-bezier(.68,-0.55,.27,1.55);
     transform-origin: center;
 }
 
 .hamburger.active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+    transform: translateY(9px) rotate(45deg);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -96,7 +97,7 @@ body {
 }
 
 .hamburger.active span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
+    transform: translateY(-9px) rotate(-45deg);
 }
 
 .menu-overlay {
