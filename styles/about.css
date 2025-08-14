@@ -236,20 +236,32 @@ body {
 }
 
 .about-content {
-    padding: 100px 0;
     background: #fff;
+}
+
+.section-fullheight {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 0;
 }
 
 .intro-section {
     max-width: 900px;
-    margin: 0 auto 80px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.intro-text {
+    padding: 20px 0;
 }
 
 .intro-text h2 {
     font-family: metropolisBlack;
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #000;
-    margin: 0 0 30px 0;
+    margin: 0 0 40px 0;
     letter-spacing: 1px;
     text-align: center;
 }
@@ -257,24 +269,31 @@ body {
 .intro-text p {
     font-family: metropolis;
     font-size: 1.2rem;
-    line-height: 1.6;
+    line-height: 1.8;
     color: #333;
-    margin: 0 0 20px 0;
+    margin: 0 0 25px 0;
     text-align: center;
 }
 
 .skills-section {
-    margin-bottom: 80px;
-    max-width: 1100px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+}
+
+/* Geen achtergrond effect */
+
+.skills-section .container {
+    position: relative;
+    z-index: 1;
 }
 
 .skills-section h3 {
     font-family: metropolisBold;
-    font-size: 1.8rem;
+    font-size: 3rem;
     color: #000;
-    margin: 0 0 40px 0;
+    margin: 0 0 60px 0;
     letter-spacing: 1px;
     text-align: center;
 }
@@ -282,8 +301,10 @@ body {
 .skills-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
     justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .skill-tag {
@@ -291,10 +312,9 @@ body {
     padding: 12px 20px;
     border-radius: 30px;
     font-family: metropolisBold;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: #000;
     transition: all 0.3s ease;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
 }
 
 .skill-tag:hover {
@@ -303,17 +323,24 @@ body {
 }
 
 .services-section {
-    margin-bottom: 80px;
     max-width: 1100px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+}
+
+/* Geen achtergrond effect */
+
+.services-section .container {
+    position: relative;
+    z-index: 1;
 }
 
 .services-section h3 {
     font-family: metropolisBold;
-    font-size: 1.8rem;
+    font-size: 3rem;
     color: #000;
-    margin: 0 0 40px 0;
+    margin: 0 0 60px 0;
     letter-spacing: 1px;
     text-align: center;
 }
@@ -321,20 +348,16 @@ body {
 .services-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    gap: 50px;
 }
 
 .service-item {
-    background: #f9f9f9;
     padding: 30px;
-    border-radius: 8px;
     transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 .service-item:hover {
-    background: #f5f5f5;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    background: #f9f9f9;
 }
 
 .service-item h4 {
@@ -360,42 +383,29 @@ body {
 }
 
 .about-hero {
-    padding-top: 100px;
-    padding-bottom: 60px;
+    padding-top: 80px; /* Verminderd van 100px naar 80px */
+    padding-bottom: 40px; /* Verminderd van 60px naar 40px */
+    height: 100vh;
+    display: flex;
+    align-items: flex-start; /* Zorgt ervoor dat de afbeelding hoger staat */
 }
 
 .profile-showcase {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.profile-image {
-    width: 100%;
-    max-width: 600px;
-    aspect-ratio: 1/1;
-    position: relative;
-    margin: 0 auto;
-}
-
-.image-placeholder {
     width: 100%;
     height: 100%;
-    background: #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
 .profile-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 85vh; /* Verhoogd van 75vh naar 85vh om te voorkomen dat de afbeelding onderaan wordt afgesneden */
+    display: block;
+    object-fit: contain;
+    margin-top: 0; /* Zorg dat er geen margin aan de bovenkant is */
 }
 
 .image-overlay {
@@ -462,12 +472,16 @@ footer {
 
 .footer-column {
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .footer-column h3 {
-    font-family: metropolisBold;
+    font-family: metropolisBlack;
     font-size: 1.2rem;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    color: #000;
     letter-spacing: 1px;
 }
 
@@ -475,66 +489,64 @@ footer {
     list-style: none;
     padding: 0;
     margin: 0;
+    width: 100%;
 }
 
 .footer-column li {
-    margin-bottom: 12px;
+    margin: 15px 0;
 }
 
 .footer-column a {
     color: #000;
     text-decoration: none;
     font-family: metropolis;
-    font-size: 1rem;
-    position: relative;
+    font-size: 0.9rem;
     display: inline-block;
+    transition: all 0.3s ease;
+    position: relative;
     z-index: 10;
 }
 
 .footer-column a::after {
     content: '';
     position: absolute;
-    width: 100%;
-    height: 1px;
+    width: 0%;
+    height: 2px;
     background-color: #000;
     left: 0;
-    bottom: -2px;
-    transform: scaleX(0);
-    transform-origin: bottom right;
-    transition: transform 0.3s ease;
+    bottom: -3px;
+    transition: width 0.4s ease;
 }
 
 .footer-column a:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
+    width: 100%;
 }
 
 .footer-column p {
     font-family: metropolis;
-    line-height: 1.6;
+    font-size: 0.9rem;
     margin: 0;
-    color: #666;
+    color: #000;
+    line-height: 1.6;
 }
 
 .footer-column p a {
-    color: #000;
+    color: #666;
     text-decoration: none;
-    font-family: metropolis;
+    display: inline-block;
+    margin-top: 15px;
     position: relative;
-    display: inline;
-    z-index: 10;
+    transition: color 0.3s ease;
 }
 
 .footer-column p a::after {
     content: '';
     position: absolute;
-    width: 100%;
-    height: 1px;
+    width: 0%;
+    height: 2px;
     background-color: #666;
     left: 0;
-    bottom: -1px;
-    transform: scaleX(0);
-    transform-origin: bottom right;
+    bottom: -5px;
     transition: width 0.4s ease, background-color 0.3s ease;
 }
 
@@ -543,20 +555,17 @@ footer {
 }
 
 .footer-column p a:hover::after {
+    width: 100%;
     background-color: #000;
 }
 
 .footer-copyright {
-    text-align: center;
     margin-top: 60px;
     padding-top: 30px;
-    border-top: 1px solid #eee;
-}
-
-.footer-copyright p {
+    color: rgba(0, 0, 0, 0.6);
     font-family: metropolis;
-    color: #999;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    text-align: center;
 }
 
 /* Responsive Design */
@@ -569,24 +578,41 @@ footer {
         padding: 0 20px;
     }
 
+    .section-fullheight {
+        padding: 80px 0;
+        min-height: auto;
+    }
+
     .about-hero {
-        padding-top: 80px;
+        height: auto;
+        padding-top: 100px;
+        padding-bottom: 60px;
+        min-height: 90vh;
     }
 
-    .profile-image {
-        max-width: 280px;
+    .profile-img {
+        max-height: 70vh;
     }
 
-    .intro-section {
-        margin-bottom: 60px;
+    .intro-text {
+        padding: 25px;
     }
 
     .intro-text h2 {
         font-size: 2rem;
+        margin-bottom: 25px;
     }
 
     .intro-text p {
         font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    .services-section h3,
+    .skills-section h3 {
+        font-size: 2rem;
+        margin-bottom: 40px;
     }
 
     .services-grid {
@@ -595,7 +621,7 @@ footer {
     }
 
     .service-item {
-        padding: 20px;
+        padding: 25px;
     }
 
     .service-item h4 {
@@ -606,18 +632,12 @@ footer {
         font-size: 0.9rem;
     }
 
-    .skills-section h3, 
-    .services-section h3 {
-        font-size: 1.5rem;
-        margin-bottom: 30px;
-    }
-
     .skills-container {
         gap: 10px;
     }
 
     .skill-tag {
-        padding: 8px 15px;
+        padding: 10px 15px;
         font-size: 0.85rem;
     }
 
@@ -628,6 +648,7 @@ footer {
     }
 
     .footer-column {
+        align-items: center;
         text-align: center;
     }
 

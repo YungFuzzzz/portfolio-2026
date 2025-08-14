@@ -45,10 +45,10 @@ function animateContentSections() {
     // Animate profile image
     gsap.fromTo('.profile-img', {
         opacity: 0,
-        scale: 0.95
+        y: 20
     }, {
         opacity: 1,
-        scale: 1,
+        y: 0,
         duration: 1.2,
         ease: "power2.out",
     });
@@ -88,12 +88,10 @@ function animateContentSections() {
         }
     });
     
-    // Animate skills section
+    // Animate skills section - vereenvoudigd
     gsap.fromTo('.skills-section h3', {
-        y: 30,
         opacity: 0
     }, {
-        y: 0,
         opacity: 1,
         duration: 0.6,
         ease: "power2.out",
@@ -106,10 +104,8 @@ function animateContentSections() {
     });
     
     gsap.fromTo('.skill-tag', {
-        y: 20,
         opacity: 0
     }, {
-        y: 0,
         opacity: 1,
         duration: 0.6,
         stagger: 0.03,
@@ -130,11 +126,11 @@ function animateContentSections() {
     }, {
         y: 0,
         opacity: 1,
-        duration: 0.6,
+        duration: 0.8,
         ease: "power2.out",
         scrollTrigger: {
             trigger: '.services-section',
-            start: "top 85%",
+            start: "top 70%",
             end: "bottom 20%",
             toggleActions: "play none none reverse"
         }
@@ -222,47 +218,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Add interaction effects to skill tags
+// Vereenvoudigde hover effect voor skills - geen beweging
 document.querySelectorAll('.skill-tag').forEach(item => {
-    item.addEventListener('mouseenter', () => {
-        gsap.to(item, {
-            scale: 1.05,
-            y: -5,
-            duration: 0.3,
-            ease: "power2.out"
-        });
-    });
-    
-    item.addEventListener('mouseleave', () => {
-        gsap.to(item, {
-            scale: 1,
-            y: 0,
-            duration: 0.3,
-            ease: "power2.out"
-        });
-    });
+    // Geen bewegingseffecten meer toegevoegd
 });
 
 // Service item hover effects removed as requested
 
-// Add hover effect to profile image
-const profileImg = document.querySelector('.profile-img');
-if (profileImg) {
-    const profileImage = document.querySelector('.profile-image');
-    
-    profileImage.addEventListener('mouseenter', () => {
-        gsap.to(profileImg, {
-            scale: 1.03,
-            duration: 0.5,
-            ease: "power2.out"
-        });
-    });
-    
-    profileImage.addEventListener('mouseleave', () => {
-        gsap.to(profileImg, {
-            scale: 1,
-            duration: 0.5,
-            ease: "power2.out"
-        });
-    });
-}
+// Removed hover effect on profile
