@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Faisal Collinet</title>
+  <link rel="stylesheet" href="styles/about.css">
+  <link rel="icon" href="./assets/images/logo.svg" type="image/x-icon" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MorphSVGPlugin.min.js"></script>
+  <script type="module" src="scripts/about.js"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <svg id="logoSvg" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path id="logoPath" d="M15.3446 2.30396L4.09344 14.2558L7.71957 22.7549L30.6893 28.8636L32 27.27L15.3446 14.2558L1.52427 29.6604L0 28.8636L16.6735 3.27782L15.3446 2.30396Z" fill="black"/>
+      </svg>
+    </a>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <div class="menu-overlay" id="menuOverlay">
+    <ul>
+      <li><a href="about.html" class="menu-link active" data-translate="menu-about" data-page="about">ABOUT ME</a></li>
+      <li><a href="index.html#work" class="menu-link" data-translate="menu-work" data-page="home">WORK</a></li>
+      <li><a href="index.html#lab" class="menu-link" data-translate="menu-lab" data-page="home">LAB</a></li>
+      <li><a href="contact.html" class="menu-link" data-translate="menu-contact" data-page="contact">SAY HI</a></li>
+    </ul>
+    <div class="language-switcher">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="nl">NL</button>
+    </div>
+  </div>
+
+  <!-- About Content -->
+  <main class="about-container">
+    <section class="about-content">
+      <div class="container">
+          <span class="char">M</span>
+          <span class="char">E</span>
+        </h1>
+      </div>
+    </section>
+
+    <section class="about-content">
+      <div class="container">
+        <div class="content-grid">
+          <div class="text-column">
+            <div class="intro-text">
+              <h2>HI, I'M FAISAL</h2>
+              <p>A Digital Experience Student passionate about creating immersive digital experiences through design and technology. I'm obsessed with fashion, art, and the intersection of creativity and code.</p>
+            </div>
+
+            <div class="bio-section">
+              <h3>BACKGROUND</h3>
+              <p>Currently studying Digital Experience Design, where I explore the boundaries between technology and human interaction. My work focuses on creating meaningful digital experiences that resonate with users on both functional and emotional levels.</p>
+              
+              <p>When I'm not coding or designing, you'll find me exploring the latest fashion trends, discovering new artists, or experimenting with creative projects that push the boundaries of what's possible in digital spaces.</p>
+            </div>
+
+            <div class="skills-section">
+              <h3>WHAT I DO</h3>
+              <div class="skills-grid">
+                <div class="skill-item">
+                  <h4>UI/UX DESIGN</h4>
+                  <p>Creating intuitive and visually compelling user interfaces</p>
+                </div>
+                <div class="skill-item">
+                  <h4>FRONT-END DEV</h4>
+                  <p>Building responsive web experiences with modern technologies</p>
+                </div>
+                <div class="skill-item">
+                  <h4>CREATIVE CODING</h4>
+                  <p>Exploring the artistic possibilities of code and animation</p>
+                </div>
+                <div class="skill-item">
+                  <h4>DIGITAL ART</h4>
+                  <p>Creating visual experiences that blend art and technology</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="image-column">
+            <div class="profile-image">
+              <div class="image-placeholder">
+                <!-- Profile image will go here -->
+                <div class="image-overlay">
+                  <span>PROFILE IMAGE</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats-section">
+              <div class="stat-item">
+                <span class="stat-number">2025</span>
+                <span class="stat-label">GRADUATING</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">10+</span>
+                <span class="stat-label">PROJECTS</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">3</span>
+                <span class="stat-label">LANGUAGES</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="philosophy-section">
+      <div class="container">
+        <div class="philosophy-content">
+          <h2>MY PHILOSOPHY</h2>
+          <blockquote>
+            "Great design is not just about how it looks, but how it makes people feel. I believe in creating digital experiences that are not only functional and beautiful, but also emotionally engaging and meaningful."
+          </blockquote>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>FAISAL</h3>
+        <ul>
+          <li><a href="index.html#work" data-translate="footer-work">WORK</a></li>
+          <li><a href="about.html" data-translate="footer-about">ABOUT ME</a></li>
+          <li><a href="contact.html" data-translate="footer-contact">SAY HI</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3 data-translate="footer-socials">SOCIALS</h3>
+        <ul>
+          <li><a href="https://instagram.com/vicesdesign" target="_blank" rel="noopener">INSTAGRAM</a></li>
+          <li><a href="https://www.linkedin.com/in/faisal-collinet-2251b5232/" target="_blank" rel="noopener">LINKEDIN</a></li>
+          <li><a href="https://github.com/YungFuzzzz" target="_blank" rel="noopener">GITHUB</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3 data-translate="footer-find">COME FIND ME</h3>
+        <p>
+          JAN KEPPENSSTRAAT 1<br>
+          1830 MACHELEN<br><br>
+          <a href="mailto:faisalcollinet01@gmail.com" data-translate="footer-email">SEND AN EMAIL</a>
+        </p>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <p data-translate="footer-copyright">&copy; 2025 Faisal. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="./scripts/about.js"></script>
+  <script src="./scripts/language.js"></script>
+</body>
+</html>

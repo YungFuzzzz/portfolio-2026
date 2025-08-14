@@ -1,0 +1,582 @@
+@font-face {
+    font-family: 'metropolis';
+    src: url(../assets/fonts/metropolis.regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'metropolisLight';
+    src: url(../assets/fonts/metropolis.light.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'metropolisBold';
+    src: url(../assets/fonts/metropolis.extra-bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'metropolisBlack';
+    src: url(../assets/fonts/metropolis.black.otf) format('opentype');
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    font-family: metropolis;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* Navigation (exact same as index.css) */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 40px 0 40px;
+    position: fixed;
+    top: 0;
+    width: calc(100% - 80px);
+    z-index: 1001;
+}
+
+.hamburger {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1200;
+    position: relative;
+}
+
+.hamburger span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background: #000;
+    margin: 3px 0;
+    border-radius: 2px;
+    transition: all 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+.hamburger span {
+    width: 25px;
+    height: 2px;
+    background: #000;
+    margin: 3px 0;
+    transition: 0.3s;
+    transform-origin: center;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.menu-overlay.active {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.menu-overlay ul {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-overlay ul li {
+    margin: 24px 0;
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.menu-overlay ul li a {
+    color: #000;
+    font-size: 2.2rem;
+    font-family: metropolisBold;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: color 0.2s;
+    position: relative;
+}
+
+.menu-overlay ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #000;
+    left: 0;
+    bottom: -2px;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.menu-overlay ul li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Active menu link with gradient */
+.menu-overlay ul li a.active {
+    background: var(--active-gradient, linear-gradient(90deg, #007F5F, #FFFF3F));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.menu-overlay ul li a.active::after {
+    background: var(--active-gradient, linear-gradient(90deg, #007F5F, #FFFF3F));
+    transform: scaleX(0); /* Hidden by default */
+}
+
+.menu-overlay ul li a.active:hover::after {
+    transform: scaleX(1); /* Show on hover */
+}
+
+.language-switcher {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+}
+
+.lang-btn {
+    background: none;
+    border: none;
+    color: #999;
+    font-family: metropolisBold;
+    font-size: 0.9rem;
+    padding: 8px 0;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.lang-btn::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: #666;
+    left: 0;
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: width 0.4s ease, background-color 0.3s ease;
+}
+
+.lang-btn:hover {
+    color: #000;
+}
+
+.lang-btn:hover::after {
+    background-color: #000;
+}
+
+.lang-btn.active {
+    color: #000;
+}
+
+.lang-btn.active::after {
+    width: 100%;
+}
+
+/* About Content */
+.about-container {
+    padding-top: 120px;
+}
+
+.about-content {
+    padding: 100px 0;
+    background: #fff;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+}
+
+.text-column {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.intro-text h2 {
+    font-family: metropolisBlack;
+    font-size: 2.5rem;
+    color: #000;
+    margin: 0 0 20px 0;
+    letter-spacing: 1px;
+}
+
+.intro-text p {
+    font-family: metropolis;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+}
+
+.bio-section h3,
+.skills-section h3 {
+    font-family: metropolisBold;
+    font-size: 1.5rem;
+    color: #000;
+    margin: 0 0 20px 0;
+    letter-spacing: 1px;
+}
+
+.bio-section p {
+    font-family: metropolis;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0 0 20px 0;
+}
+
+.bio-section p:last-child {
+    margin-bottom: 0;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.skill-item h4 {
+    font-family: metropolisBold;
+    font-size: 1rem;
+    color: #000;
+    margin: 0 0 8px 0;
+    letter-spacing: 0.5px;
+}
+
+.skill-item p {
+    font-family: metropolis;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #666;
+    margin: 0;
+}
+
+.image-column {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.profile-image {
+    width: 100%;
+    aspect-ratio: 3/4;
+    position: relative;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: metropolisBold;
+    color: #999;
+    letter-spacing: 1px;
+}
+
+.stats-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0;
+    border-top: 1px solid #eee;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.stat-number {
+    font-family: metropolisBlack;
+    font-size: 2rem;
+    color: #000;
+    line-height: 1;
+}
+
+.stat-label {
+    font-family: metropolisBold;
+    font-size: 0.8rem;
+    color: #666;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+.philosophy-section {
+    padding: 100px 0;
+    background: #f8f8f8;
+}
+
+.philosophy-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.philosophy-content h2 {
+    font-family: metropolisBlack;
+    font-size: 2.5rem;
+    color: #000;
+    margin: 0 0 40px 0;
+    letter-spacing: 1px;
+}
+
+.philosophy-content blockquote {
+    font-family: metropolis;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    font-style: italic;
+}
+
+/* Footer (copied from contact.css) */
+footer {
+    color: #000;
+    text-align: center;
+    padding: 80px 20px 40px;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 80px;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.footer-column {
+    text-align: left;
+}
+
+.footer-column h3 {
+    font-family: metropolisBold;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column li {
+    margin-bottom: 12px;
+}
+
+.footer-column a {
+    color: #000;
+    text-decoration: none;
+    font-family: metropolis;
+    font-size: 1rem;
+    position: relative;
+    display: inline-block;
+    z-index: 10;
+}
+
+.footer-column a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    left: 0;
+    bottom: -2px;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.footer-column a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.footer-column p {
+    font-family: metropolis;
+    line-height: 1.6;
+    margin: 0;
+    color: #666;
+}
+
+.footer-column p a {
+    color: #000;
+    text-decoration: none;
+    font-family: metropolis;
+    position: relative;
+    display: inline;
+    z-index: 10;
+}
+
+.footer-column p a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: #666;
+    left: 0;
+    bottom: -1px;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: width 0.4s ease, background-color 0.3s ease;
+}
+
+.footer-column p a:hover {
+    color: #000;
+}
+
+.footer-column p a:hover::after {
+    background-color: #000;
+}
+
+.footer-copyright {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+}
+
+.footer-copyright p {
+    font-family: metropolis;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .about-hero {
+        height: 50vh;
+    }
+
+    .about-title {
+        font-size: clamp(3rem, 15vw, 6rem);
+    }
+
+    .intro-text h2 {
+        font-size: 2rem;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .stats-section {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .philosophy-content h2 {
+        font-size: 2rem;
+    }
+
+    .philosophy-content blockquote {
+        font-size: 1.1rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .footer-column {
+        text-align: center;
+    }
+
+    .menu-overlay ul li a {
+        font-size: 1.8rem;
+    }
+}
