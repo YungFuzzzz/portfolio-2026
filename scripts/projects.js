@@ -13,73 +13,38 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize project-specific components
   initializeProjectsAnimations();
-  initializeProjectCards();
+  initializeScrollIndicators();
 });
 
-// Handle scroll arrow functionality
+// Handle main scroll arrow functionality
 function initializeScrollArrow() {
-  const scrollArrow = document.querySelector('.scroll-arrow');
+  // We're now using main-scroll-indicator class for the hero section arrow
+  // The old .scroll-arrow class isn't used anymore
+  console.log('Scroll indicators initialized');
+}
+
+// Initialize main scroll indicator
+function initializeScrollIndicators() {
+  const mainScrollIndicator = document.querySelector('.main-scroll-indicator');
   
-  if (!scrollArrow) {
-    console.warn('Scroll arrow not found');
-    return;
-  }
-
-  // Show arrow after a delay on page load
-  gsap.to(scrollArrow, { 
-    opacity: 0.7, 
-    duration: 0.5, 
-    delay: 1.5,
-    onComplete: () => scrollArrow.classList.add('visible')
-  });
-
-  // Handle arrow click
-  scrollArrow.addEventListener('click', () => {
-    const heroSection = document.querySelector('.hero');
-    const projectsSection = document.querySelector('.projects');
-    
-    if (heroSection && projectsSection) {
-      const projectsTop = projectsSection.getBoundingClientRect().top + window.pageYOffset;
+  if (mainScrollIndicator) {
+    mainScrollIndicator.addEventListener('click', () => {
+      // Scroll to the first project
+      const heroSection = document.querySelector('.hero');
+      const firstProject = document.querySelector('.project-slide');
       
-      gsap.to(window, {
-        scrollTo: {
-          y: projectsTop,
-          autoKill: false
-        },
-        duration: 1,
-        ease: 'power3.inOut'
-      });
-    }
-  });
-
-  // Hide/show arrow based on scroll position
-  let lastScrollTop = 0;
-  
-  window.addEventListener('scroll', () => {
-    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // At top of page
-    if (currentScrollTop < 100) {
-      if (!document.getElementById('hamburger').classList.contains('active')) {
-        gsap.to(scrollArrow, { opacity: 0.7, duration: 0.3 });
-        scrollArrow.classList.add('visible');
+      if (heroSection && firstProject) {
+        gsap.to(window, {
+          scrollTo: {
+            y: firstProject,
+            autoKill: false
+          },
+          duration: 1,
+          ease: 'power3.inOut'
+        });
       }
-    } 
-    // Scrolling down
-    else if (currentScrollTop > lastScrollTop) {
-      gsap.to(scrollArrow, { opacity: 0, duration: 0.3 });
-      scrollArrow.classList.remove('visible');
-    }
-    // Scrolling to top
-    else {
-      if (!document.getElementById('hamburger').classList.contains('active')) {
-        gsap.to(scrollArrow, { opacity: 0.7, duration: 0.3 });
-        scrollArrow.classList.add('visible');
-      }
-    }
-    
-    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-  });
+    });
+  }
 }
 
 // Hero and content animations
@@ -98,22 +63,70 @@ function initializeProjectsAnimations() {
       '-=0.7' // Slight overlap
     );
 
-  // Project cards staggered reveal
-  gsap.fromTo('.project-card', 
-    { opacity: 0, y: 50 },
-    { 
-      opacity: 1, 
-      y: 0, 
-      duration: 0.8,
-      stagger: 0.15,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '.projects-grid',
-        start: 'top bottom-=100',
-        toggleActions: 'play none none none'
-      }
+  // Project slides animations
+  const projectSlides = document.querySelectorAll('.project-slide');
+  
+  projectSlides.forEach((slide, index) => {
+    // Set background image for the visual element with landscape orientation
+    const imageUrl = slide.getAttribute('data-image');
+    const visualElement = slide.querySelector('.project-visual');
+    
+    if (imageUrl && visualElement) {
+      // Create and append actual IMG element instead of using background-image
+      const imgElement = document.createElement('img');
+      imgElement.src = imageUrl;
+      imgElement.style.width = '100%';
+      imgElement.style.height = '100%';
+      imgElement.style.objectFit = 'cover';
+      imgElement.style.display = 'block';
+      
+      // Clear any existing background image settings
+      visualElement.style.backgroundImage = 'none';
+      visualElement.appendChild(imgElement);
     }
-  );
+    
+    // Create scrolltrigger for each project
+    const slideAnim = gsap.timeline({
+      scrollTrigger: {
+        trigger: slide,
+        start: 'top center',
+        toggleActions: 'play none none none',
+        once: true
+      }
+    });
+    
+    // Add animations
+    slideAnim
+      .fromTo(visualElement, 
+        { opacity: 0, x: -30 },
+        { opacity: 1, x: 0, duration: 0.8 }
+      )
+      .fromTo(visualElement.querySelector('img'),
+        { scale: 1.05 },
+        { scale: 1, duration: 0.8 },
+        '-=0.8'
+      )
+      .fromTo(slide.querySelector('h2'), 
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        '-=0.6'
+      )
+      .fromTo(slide.querySelector('p'), 
+        { opacity: 0, y: 30 },
+        { opacity: 0.9, y: 0, duration: 0.8 },
+        '-=0.6'
+      )
+      .fromTo(slide.querySelector('.project-meta'), 
+        { opacity: 0, y: 30 },
+        { opacity: 0.5, y: 0, duration: 0.8 },
+        '-=0.6'
+      )
+      .fromTo(slide.querySelector('.more-info-btn'), 
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        '-=0.6'
+      );
+  });
 
   // Contact section animation
   gsap.fromTo('.contact h2', 
@@ -144,48 +157,19 @@ function initializeProjectsAnimations() {
       }
     }
   );
-}
-
-// Initialize project card images and hover effects
-function initializeProjectCards() {
-  const projectCards = document.querySelectorAll('.project-card');
   
-  projectCards.forEach(card => {
-    // Set background image
-    const imageUrl = card.getAttribute('data-image');
-    const imageElement = card.querySelector('.project-image');
-    
-    if (imageUrl && imageElement) {
-      imageElement.style.backgroundImage = `url('${imageUrl}')`;
-    }
-
-    // Add hover animations
-    card.addEventListener('mouseenter', () => {
-      gsap.to(card.querySelector('.project-info'), { 
-        y: -5, 
-        duration: 0.3,
-        ease: 'power2.out'
-      });
-    });
-
-    card.addEventListener('mouseleave', () => {
-      gsap.to(card.querySelector('.project-info'), { 
-        y: 0, 
-        duration: 0.3,
-        ease: 'power2.out'
-      });
-    });
-
-    // Make cards clickable
-    card.addEventListener('click', () => {
-      // In the future, this could navigate to project detail pages
-      console.log(`Project card clicked: ${card.querySelector('h3').textContent}`);
+  // Button hover effects for more-info-btn
+  const moreInfoBtns = document.querySelectorAll('.more-info-btn');
+  
+  moreInfoBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
       
-      // For now, just add a subtle effect to confirm click
-      gsap.fromTo(card, 
+      // Add click animation
+      gsap.fromTo(btn, 
         { scale: 1 },
         { 
-          scale: 0.98, 
+          scale: 0.95, 
           duration: 0.1,
           yoyo: true,
           repeat: 1
