@@ -25,6 +25,17 @@ body {
     scroll-behavior: smooth;
 }
 
+/* Custom text selection styling */
+::selection {
+    background-color: #000;
+    color: #fff;
+}
+
+::-moz-selection {
+    background-color: #000;
+    color: #fff;
+}
+
 /* Image trace container */
 .image-container {
     position: absolute;
