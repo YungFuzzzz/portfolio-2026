@@ -163,9 +163,7 @@ function initializeProjectsAnimations() {
   
   moreInfoBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      
-      // Add click animation
+      // Animation only, without preventing default behavior
       gsap.fromTo(btn, 
         { scale: 1 },
         { 
@@ -175,6 +173,12 @@ function initializeProjectsAnimations() {
           repeat: 1
         }
       );
+      
+      // Only prevent default for buttons that don't have an actual URL
+      const href = btn.getAttribute('href');
+      if (href === '#') {
+        e.preventDefault();
+      }
     });
   });
 }
